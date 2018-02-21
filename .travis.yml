@@ -1,0 +1,19 @@
+branches:
+  only:
+    - master
+
+matrix:
+  include:
+    - language: android
+      sudo: required
+      jdk: oraclejdk8
+      android: 
+        components:
+          - platform-tools
+          - build-tools-27.1.7
+          - android-27
+      env: LANE='android'
+
+    - language: objective-c
+      os: osx
+      env : LANE='ios'
