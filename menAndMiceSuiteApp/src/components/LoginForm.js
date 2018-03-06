@@ -1,3 +1,9 @@
+/*
+    LoginForm.js
+
+    The initial screen that the user sees.
+    simple input fields and login button
+ */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, Image, Text} from 'react-native';

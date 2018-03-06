@@ -1,3 +1,8 @@
+/*
+    AuthReducer.js
+
+    Handles the state for user authentication actions
+ */
 import {
     SERVER_NAME_CHANGED,
     USERNAME_CHANGED,

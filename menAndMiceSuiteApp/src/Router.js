@@ -1,7 +1,13 @@
+/*
+    Router.js
+
+    Organises all the screens into categories, so it is easier to change screens in the app
+ */
 import React from 'react';
 import {Scene, Router} from 'react-native-router-flux';
 import LoginForm from './components/LoginForm';
 import UserInfo from './components/UserInfo';
+import Dashboard from './components/Dashboard';
 
 const RouterComponent = () => {
     return(
@@ -11,7 +17,7 @@ const RouterComponent = () => {
                     <Scene key="login" component={LoginForm} title="Login" initial/>
                 </Scene>
                 <Scene key="main">
-                    <Scene key="user" component={UserInfo} title="User Info"/>
+                    <Scene key="user" component={Dashboard} title="User Info" initial/>
                 </Scene>
             </Scene>
         </Router>

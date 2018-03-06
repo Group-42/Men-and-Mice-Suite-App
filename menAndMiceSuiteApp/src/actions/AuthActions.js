@@ -1,3 +1,8 @@
+/*
+    AuthActions.js
+
+    Contains all the functions needed for user authentication
+ */
 import {AsyncStorage} from 'react-native';
 import axios from 'axios';
 import {Actions} from 'react-native-router-flux';
