@@ -26,7 +26,7 @@ class LoginForm extends Component {
     renderError() {
         if(this.props.error) {
             return (
-                <View Style={{backgroundColor: 'white'}}>
+                <View Style={{backgroundColor: '#ffffff'}}>
                     <Text style={styles.errorTextStyle}>
                         {this.props.error}
                     </Text>
@@ -49,18 +49,18 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.loginStyle}>
                 <Card>
                     <CardSection>
                         <Image
                             style={styles.imageStyle}
                             resizeMode='contain'
-                            source={require('../icons/logo.jpg')}
+                            source={require('../icons/logo_dark.png')}
                         />
                     </CardSection>
                     <CardSection>
                         <Input
-                            label="Server Name"
+                            label="Domain Name"
                             placeholder="mmsuite.company.com"
                             onChangeText={this.onServerNameChange.bind(this)}
                             value={this.props.serverName}
@@ -84,11 +84,11 @@ class LoginForm extends Component {
                         />
                     </CardSection>
 
-                    {this.renderError()}
-
                     <CardSection>
                         {this.renderButton()}
                     </CardSection>
+
+                    {this.renderError()}
                 </Card>
             </View>
         );
@@ -96,14 +96,21 @@ class LoginForm extends Component {
 }
 
 const styles = {
+    loginStyle: {
+        backgroundColor: '#29495B',
+        flex: 1
+    },
     imageStyle: {
         flexShrink: 1,
-        height: 90
+        height: 90,
+        marginTop: 50,
+        marginBottom: 25
     },
     errorTextStyle: {
         fontSize: 20,
         alignSelf: 'center',
-        color: 'red'
+        color: '#dc143c',
+        backgroundColor: '#29495B'
     }
 };
 

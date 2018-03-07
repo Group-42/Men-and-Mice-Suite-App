@@ -1,4 +1,12 @@
+<<<<<<< Updated upstream
 ../.idea/
+=======
+__tests__/
+android/
+ios/
+node_modules/
+
+>>>>>>> Stashed changes
 
 # OSX
 #
