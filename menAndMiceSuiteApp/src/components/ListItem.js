@@ -8,7 +8,7 @@ import {Text, TouchableWithoutFeedback, View, LayoutAnimation, UIManager} from '
 import {connect} from 'react-redux';
 import {CardSection} from './common';
 import {DashHealth} from "./DashHealth";
-import * as actions from '../actions';
+import * as actions from '../actions/DashboardActions';
 
 class ListItem extends Component {
     componentWillUpdate() {
@@ -22,9 +22,9 @@ class ListItem extends Component {
         if(expanded){
             return(
                 <CardSection>
-                   <View  style={{flexDirection: 'column'}}>
+                    <View  style={{flexDirection: 'column'}}>
                         {library.items.map((r) => <DashHealth key={r} style={styles.itemStyle}>{r}</DashHealth>)}
-                   </View>
+                    </View>
                 </CardSection>
             );
         }

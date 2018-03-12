@@ -9,15 +9,16 @@ import {Text} from 'react-native';
 import {connect} from 'react-redux';
 import {logoutUser} from "../actions";
 import {Button, Card, CardSection} from "./common";
+import {DashHealth} from "./DashHealth";
 
 class UserInfo extends Component{
     render() {
         return(
             <Card>
                 <CardSection>
-                    <Text>
+                    <DashHealth>
                         Username: {this.props.user.data.result.user.name}
-                    </Text>
+                    </DashHealth>
                 </CardSection>
                 <CardSection>
                     <Button onPress={this.props.logoutUser}>

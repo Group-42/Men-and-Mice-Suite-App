@@ -5,7 +5,7 @@
     Used to indicate health status on the dashboard
  */
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 
 const DashHealth = ({children}) => {
     const {textStyle, boxStyle} = styles;
@@ -13,6 +13,7 @@ const DashHealth = ({children}) => {
     return(
         <View style={{flexDirection: 'row'}}>
             <View style={boxStyle}/>
+
             <Text style={textStyle}>
                 {children}
             </Text>
