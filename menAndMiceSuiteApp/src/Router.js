@@ -17,7 +17,7 @@ const RouterComponent = () => {
                     <Scene key="login" component={LoginForm} title="Login" initial/>
                 </Scene>
                 <Scene key="main">
-                    <Scene key="user" component={Dashboard} title="User Info" initial/>
+                    <Scene key="user" component={Dashboard} title="Dashboard" initial/>
                 </Scene>
             </Scene>
         </Router>
