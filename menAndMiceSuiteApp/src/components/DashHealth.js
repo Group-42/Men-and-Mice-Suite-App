@@ -12,7 +12,12 @@ const DashHealth = ({children}) => {
 
     return(
         <View style={{flexDirection: 'row'}}>
-            <View style={boxStyle}/>
+
+            <Image
+                style={boxStyle}
+                resizeMode='contain'
+                source={require('../icons/Dashboard_greencheck.png')}
+            />
 
             <Text style={textStyle}>
                 {children}
