@@ -11,3 +11,7 @@ export const selectCategory = (categoryId) => {
         payload: categoryId
     };
 };
+
+const callGetHealthStatusBar = () => {
+
+};

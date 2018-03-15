@@ -38,6 +38,9 @@ export const passwordChanged = (text) => {
 };
 
 export const loginUser = ({serverName, username, password}) => {
+    serverName = '10.0.2.2';
+    username = 'administrator';
+    password = 'administrator';
     return(dispatch) => {
         dispatch({type: SPINNER_START});
 
