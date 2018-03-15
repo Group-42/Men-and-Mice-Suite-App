@@ -109,7 +109,7 @@ const styles = {
     errorTextStyle: {
         fontSize: 20,
         alignSelf: 'center',
-        color: '#dc143c',
+        color: '#ff0d05',
         backgroundColor: '#29495B'
     }
 };
