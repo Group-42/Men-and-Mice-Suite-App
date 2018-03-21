@@ -1,26 +1,26 @@
 [
   {"id": 0,
-    "title": "Men & Mice Suite",
-    "items": ["Men & Mice Central",
-              "Licensing",
-              "Server Controls"]
+    "title": "#Men & Mice Suite",
+    "items": ["#Men & Mice Central",
+              "#Licensing",
+              "#Server Controls"]
   },
   {"id": 1,
-    "title": "DNS",
-    "items": ["DNS Servers",
-              "DNS Zones"]
+    "title": "#DNS",
+    "items": ["#DNS Servers",
+              "#DNS Zones"]
   },
   {"id": 2,
-    "title": "DHCP",
-    "items": ["DHCP Servers",
-              "DHCP Scopes"]
+    "title": "#DHCP",
+    "items": ["#DHCP Servers",
+              "#DHCP Scopes"]
   },
   {"id": 3,
-    "title": "IPAM",
-    "items": ["Static"]
+    "title": "#IPAM",
+    "items": ["#Static"]
   },
   {"id": 4,
-    "title": "Appliances",
-    "items": ["Appliance Health"]
+    "title": "#Appliances",
+    "items": ["#Appliance Health"]
   }
 ]

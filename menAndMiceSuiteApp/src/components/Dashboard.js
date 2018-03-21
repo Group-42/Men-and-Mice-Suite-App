@@ -9,11 +9,11 @@ import {connect} from 'react-redux';
 import ListItem from './ListItem';
 
 class Dashboard extends Component{
-    componentWillMount() {
+    constructor(props) {
+        super(props);
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-
         this.dataSource = ds.cloneWithRows(this.props.libraries);
     }
 
@@ -31,7 +31,9 @@ class Dashboard extends Component{
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
+    /*const {data} = healthStatus;
+    return {data};*/
     return { libraries: state.libraries };
 };
 

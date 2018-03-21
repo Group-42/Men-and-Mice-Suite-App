@@ -15,6 +15,7 @@ import {
     SPINNER_START,
     USER_LOGOUT
 } from "./types";
+import {getHealthStatusBar} from "./DashboardActions";
 
 export const serverNameChanged = (text) => {
     return {
@@ -38,7 +39,8 @@ export const passwordChanged = (text) => {
 };
 
 export const loginUser = ({serverName, username, password}) => {
-    serverName = '10.0.2.2';
+    serverName = 'ca.dev.lab';
+    //serverName = '192.168.5.89';
     username = 'administrator';
     password = 'administrator';
     return(dispatch) => {
@@ -86,7 +88,7 @@ const setUserInfo = ({serverName, username, password}) => {
             ['@user:username', username],
             ['@user:password', password]
         ]);
-        console.log(value);
+        console.log('setUserInfo: ', value);
     } catch(error) {
         console.log(error);
     }
@@ -94,5 +96,5 @@ const setUserInfo = ({serverName, username, password}) => {
 
 const removeUserInfo = () => {
     const value = AsyncStorage.multiRemove(['@user:serverName','@user:username', '@user:password']);
-    console.log(value);
+    console.log('removeUserInfo: ', value);
 };

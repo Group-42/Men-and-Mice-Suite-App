@@ -14,6 +14,13 @@ export const USER_LOGOUT = 'user_logout';
 
 //### DASHBOARD
 export const SELECT_CATEGORY = 'selected_category';
+export const FETCHING_USER_INFO = 'fetching_user_info';
+export const FETCHING_USER_INFO_SUCCESS = 'fetching_user_info_success';
+export const FETCHING_USER_INFO_FAIL = 'fetching_user_info_fail';
+
+export const GET_HEALTH_STATUS_SUCCESS = 'get_appliance_health_success';
+export const GETTING_HEALTH_STATUS = 'getting_appliance_health';
+export const GETTING_HEALTH_STATUS_FAIL = 'get_appliance_health_fail';
 
 //### OTHER
 export const SPINNER_START = 'spinner_start';

@@ -7,18 +7,39 @@
 import React, {Component} from 'react';
 import {Text} from 'react-native';
 import {connect} from 'react-redux';
-import {logoutUser} from "../actions";
-import {Button, Card, CardSection} from "./common";
-import {DashHealth} from "./DashHealth";
+import {logoutUser, getHealthStatusBar} from "../actions";
+import {Button, Card, CardSection, Spinner} from "./common";
 
 class UserInfo extends Component{
+    constructor(props) {
+        super(props);
+        this.props.getHealthStatusBar();
+    }
+    onButtonPress() {
+    }
+
+    renderButton() {
+        if(this.props.isFetching) {
+            return <Spinner size="large"/>
+        }
+
+        return(
+            <Button onPress={this.onButtonPress.bind(this)}>
+                GET USER INFO
+            </Button>
+        );
+    }
+
     render() {
         return(
             <Card>
                 <CardSection>
-                    <DashHealth>
+                    <Text>
                         Username: {this.props.user.data.result.user.name}
-                    </DashHealth>
+                    </Text>
+                </CardSection>
+                <CardSection>
+                    {this.renderButton()}
                 </CardSection>
                 <CardSection>
                     <Button onPress={this.props.logoutUser}>
@@ -30,9 +51,10 @@ class UserInfo extends Component{
     }
 }
 
-const mapStateToProps = ({auth}) => {
+const mapStateToProps = ({auth, healthStatus}) => {
     const {user} = auth;
-    return {user};
+    const {isFetching, data} = healthStatus;
+    return {user, isFetching, data};
 };
 
-export default connect(mapStateToProps, {logoutUser})(UserInfo);
+export default connect(mapStateToProps, {logoutUser, getHealthStatusBar})(UserInfo);

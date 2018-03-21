@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {CardSection} from './common';
 import {DashHealth} from "./DashHealth";
 import * as actions from '../actions/DashboardActions';
+import {getHealthStatusBar} from "../actions";
 
 class ListItem extends Component {
     componentWillUpdate() {
@@ -18,7 +19,6 @@ class ListItem extends Component {
 
     renderDescription() {
         const {library, expanded} = this.props;
-
         if(expanded){
             return(
                 <CardSection>
@@ -35,7 +35,7 @@ class ListItem extends Component {
         const {id, title} = this.props.library;
 
         return(
-            <TouchableWithoutFeedback onPress={() => this.props.selectCategory(id)}>
+            <TouchableWithoutFeedback onPress={() => this.props.selectCategory(title)}>
                 <View>
                     <CardSection>
                         <Text style={titleStyle}>
@@ -61,7 +61,7 @@ const styles = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const expanded = state.selectedCategory === ownProps.library.id;
+    const expanded = state.selectedCategory === ownProps.library.title;
     return {expanded};
 };
 
