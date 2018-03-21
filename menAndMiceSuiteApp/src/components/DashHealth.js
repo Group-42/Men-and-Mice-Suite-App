@@ -8,10 +8,10 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 
 const DashHealth = ({children}) => {
-    const {textStyle, boxStyle} = styles;
+    const {viewStyle, textStyle, boxStyle} = styles;
 
     return(
-        <View style={{flexDirection: 'row'}}>
+        <View style={viewStyle}>
 
             <Image
                 style={boxStyle}
@@ -27,14 +27,22 @@ const DashHealth = ({children}) => {
 };
 
 const styles = {
+    viewStyle: {
+        flexDirection: 'row',
+        height: 50
+    },
     textStyle: {
+        fontFamily: 'ProximaNova-Light',
+        fontSize: 24,
+        color: '#f5f5f5',
+        marginTop: 8,
         paddingLeft: 10,
         paddingRight: 10
     },
     boxStyle: {
-        width: 15,
-        height: 15,
-        backgroundColor:'green',
+        width: 30,
+        height: 30,
+        marginTop: 7,
         borderColor: 'black',
         borderWidth: 1
     }
