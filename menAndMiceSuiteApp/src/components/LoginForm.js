@@ -32,7 +32,7 @@ class LoginForm extends Component {
     renderError() {
         if(this.props.error) {
             return (
-                <View Style={{backgroundColor: '#ffffff'}}>
+                <View>
                     <Text style={styles.errorTextStyle}>
                         {this.props.error}
                     </Text>
@@ -109,10 +109,11 @@ const styles = {
     imageStyle: {
         flexShrink: 1,
         height: 90,
-        marginTop: 50,
-        marginBottom: 25
+        marginTop: 35,
+        marginBottom: 35
     },
     errorTextStyle: {
+        fontFamily: 'ProximaNova-Light',
         fontSize: 20,
         alignSelf: 'center',
         color: '#dc143c',

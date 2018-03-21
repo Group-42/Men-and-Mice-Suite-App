@@ -40,7 +40,6 @@ export const passwordChanged = (text) => {
 
 export const loginUser = ({serverName, username, password}) => {
     serverName = 'ca.dev.lab';
-    //serverName = '192.168.5.89';
     username = 'administrator';
     password = 'administrator';
     return(dispatch) => {
