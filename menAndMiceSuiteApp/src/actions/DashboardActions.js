@@ -19,10 +19,10 @@ export const selectCategory = (categoryId) => {
     };
 };
 
-export const getHealthStatusBar = async() => {
-    let serverName;
-    let username;
-    let password;
+const getUserInfo = async() => {
+    let serverName = '';
+    let username = '';
+    let password = '';
 
     await AsyncStorage.getItem('@MMStorage:serverName')
         .then(data => {
@@ -39,15 +39,31 @@ export const getHealthStatusBar = async() => {
             password = data;
             console.log('testing3: ', data)
         });
+    
     console.log('testing1.1:', serverName);
     console.log('testing2.2:', username);
     console.log('testing3.3:', password);
 
-    return (dispatch) => {
+    return [serverName, username, password];
+}
+
+export const getHealthStatusBar = () => {
+    let serverName;
+    let username;
+    let password;
+
+    return async (dispatch) => {
         dispatch({type: GETTING_HEALTH_STATUS});
-        axios({
+
+        await getUserInfo().then((info) => {
+            serverName = info[0];
+            username = info[1];
+            password = info[2];
+        });
+
+        await axios({
             method: 'GET',
-            url: 'http://'+ serverName +'/mmws/api/command/GetHealthStatusBar?groupIntoArrays=true',
+            url: 'http://' + serverName + '/mmws/api/command/GetHealthStatusBar?groupIntoArrays=true',
             header: {
                 'content-type': 'application/json'
             },
@@ -61,29 +77,6 @@ export const getHealthStatusBar = async() => {
             console.log('GET error', error);
         });
     };
-};
-
-export const getHealthStatusBar2 = () => {
-    let serverName = 'ca.dev.lab';
-    let username = 'administrator';
-    let password = 'administrator';
-
-    axios({
-        method: 'GET',
-        url: 'http://'+ serverName +'/mmws/api/command/GetHealthStatusBar?groupIntoArrays=true',
-        header: {
-            'content-type': 'application/json'
-        },
-        auth: {
-            username: username,
-            password: password
-        }
-    }).then(response => {
-        console.log('getHealthStatusBar:', response.data.result.healthStatusBar.healthData);
-        return response.data.result.healthStatusBar.healthData;
-    }).catch((error) => {
-        console.log('GET error', error);
-    });
 };
 
 export function getDataSuccess(data) {

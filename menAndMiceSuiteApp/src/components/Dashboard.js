@@ -18,9 +18,6 @@ class Dashboard extends Component{
             rowHasChanged: (r1, r2) => r1 !== r2
         });
         this.dataSource = ds.cloneWithRows(this.props.data);
-        /*this.state = {
-            dataSource: ds.cloneWithRows(this.props.data)
-        };*/
     }
 
     componentDidMount() {
