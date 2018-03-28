@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {CardSection} from './common';
 import {DashHealth} from "./DashHealth";
 import * as actions from '../actions/DashboardActions';
+import {getHealthStatusBar} from "../actions";
 
 class ListItem extends Component {
     componentWillUpdate() {
@@ -64,20 +65,49 @@ class ListItem extends Component {
         }
     }
 
+    renderHealthStatus(healthStatus) {
+        const {boxStyle} = styles;
+        if(healthStatus === 'ok') {
+            return(
+                <Image
+                    style={boxStyle}
+                    resizeMode='contain'
+                    source={require('../icons/Dashboard_greencheck.png')}
+                />
+            );
+        }
+        else if(healthStatus === 'warning') {
+            return(
+                <Image
+                    style={boxStyle}
+                    resizeMode='contain'
+                    source={require('../icons/Dashboard_yellowwarning.png')}
+                />
+            );
+        }
+        else {
+            return (
+                <Image
+                    style={boxStyle}
+                    resizeMode='contain'
+                    source={require('../icons/Dashboard_rederror.png')}
+                />
+            );
+        }
+
+    }
+
 
     render() {
-        const {titleStyle, boxStyle, cardStyle} = styles;
-        const {description} = this.props.library;
+        const {titleStyle, cardStyle} = styles;
+        const {description, status} = this.props.library;
+        console.log('health status: ', status);
 
         return(
             <TouchableWithoutFeedback onPress={() => this.props.selectCategory(description)}>
                 <View>
                     <CardSection style={cardStyle}>
-                        <Image
-                            style={boxStyle}
-                            resizeMode='contain'
-                            source={require('../icons/Dashboard_greencheck.png')}
-                        />
+                        {this.renderHealthStatus(status)}
                         <Text style={titleStyle}>
                             {description}
                         </Text>

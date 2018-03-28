@@ -21,7 +21,6 @@ class Dashboard extends Component{
     }
 
     componentDidMount() {
-        console.log('DATA: ', this.props.data);
         this.updateDataSource(this.props.data);
     }
 
@@ -70,7 +69,6 @@ class Dashboard extends Component{
 const mapStateToProps = ({healthStatus}) => {
     const {isFetching, data} = healthStatus;
     return {isFetching, data};
-    //return {libraries: state.libraries};
 };
 
 const styles = {

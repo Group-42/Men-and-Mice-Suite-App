@@ -27,22 +27,15 @@ const getUserInfo = async() => {
     await AsyncStorage.getItem('@MMStorage:serverName')
         .then(data => {
             serverName = data;
-            console.log('testing1: ', data)
         });
     await AsyncStorage.getItem('@MMStorage:user')
         .then(data => {
             username = data;
-            console.log('testing2: ', data)
         });
     await AsyncStorage.getItem('@MMStorage:password')
         .then(data => {
             password = data;
-            console.log('testing3: ', data)
         });
-    
-    console.log('testing1.1:', serverName);
-    console.log('testing2.2:', username);
-    console.log('testing3.3:', password);
 
     return [serverName, username, password];
 }
