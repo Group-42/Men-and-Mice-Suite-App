@@ -3,7 +3,8 @@
 
     Contains all the functions needed for user authentication
  */
-import {AsyncStorage} from 'react-native';
+import React, { Component } from 'react';
+import {AppRegistry, AsyncStorage} from 'react-native';
 import axios from 'axios';
 import {Actions} from 'react-native-router-flux';
 import {
@@ -37,6 +38,7 @@ export const passwordChanged = (text) => {
     };
 };
 
+
 export const loginUser = ({serverName, username, password}) => {
     serverName = 'ca.dev.lab';
     //serverName = '192.168.5.193';
@@ -57,9 +59,20 @@ export const loginUser = ({serverName, username, password}) => {
         }).then(user => {
             loginUserSuccess(dispatch, user);
             setUserInfo({serverName, username, password});
+
         }).catch(() => loginUserFail(dispatch));
     };
 };
+
+async function setUserInfo({serverName, username, password}) {
+    try {
+        await AsyncStorage.setItem('@MMStorage:serverName', serverName);
+        await AsyncStorage.setItem('@MMStorage:user', username);
+        await AsyncStorage.setItem('@MMStorage:password', password);
+    } catch (error) {
+        console.log("Error setting data" + error);
+    }
+}
 
 export const logoutUser = () => {
     return(dispatch) => {
@@ -80,20 +93,8 @@ const loginUserFail = (dispatch) => {
     dispatch({type: USER_LOGIN_FAIL});
 };
 
-const setUserInfo = ({serverName, username, password}) => {
-    try {
-        const value = AsyncStorage.multiSet([
-            ['@user:serverName', serverName],
-            ['@user:username', username],
-            ['@user:password', password]
-        ]);
-        console.log('setUserInfo: ', value);
-    } catch(error) {
-        console.log(error);
-    }
-};
 
 const removeUserInfo = () => {
-    const value = AsyncStorage.multiRemove(['@user:serverName','@user:username', '@user:password']);
+    const value = AsyncStorage.multiRemove(['@MMStorage:serverName','@MMStorage:username', '@MMStorage:password']);
     console.log('removeUserInfo: ', value);
 };

@@ -19,11 +19,30 @@ export const selectCategory = (categoryId) => {
     };
 };
 
-export const getHealthStatusBar = () => {
-    let serverName = 'ca.dev.lab';
-    //let serverName = '192.168.5.193';
-    let username = 'administrator';
-    let password = 'administrator';
+export const getHealthStatusBar = async() => {
+    let serverName;
+    let username;
+    let password;
+
+    await AsyncStorage.getItem('@MMStorage:serverName')
+        .then(data => {
+            serverName = data;
+            console.log('testing1: ', data)
+        });
+    await AsyncStorage.getItem('@MMStorage:user')
+        .then(data => {
+            username = data;
+            console.log('testing2: ', data)
+        });
+    await AsyncStorage.getItem('@MMStorage:password')
+        .then(data => {
+            password = data;
+            console.log('testing3: ', data)
+        });
+    console.log('testing1.1:', serverName);
+    console.log('testing2.2:', username);
+    console.log('testing3.3:', password);
+
     return (dispatch) => {
         dispatch({type: GETTING_HEALTH_STATUS});
         axios({
