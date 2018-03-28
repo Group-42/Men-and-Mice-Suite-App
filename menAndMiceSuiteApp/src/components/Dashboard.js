@@ -8,6 +8,7 @@ import {View, ListView} from 'react-native';
 import {connect} from 'react-redux';
 import ListItem from './ListItem';
 import {Header} from "./common";
+import {getHealthStatusBar} from "../actions";
 
 class Dashboard extends Component{
     constructor(props) {
@@ -16,6 +17,7 @@ class Dashboard extends Component{
             rowHasChanged: (r1, r2) => r1 !== r2
         });
         this.dataSource = ds.cloneWithRows(this.props.libraries);
+        getHealthStatusBar();
     }
 
     renderRow(library) {
