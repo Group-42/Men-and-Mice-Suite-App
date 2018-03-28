@@ -21,12 +21,11 @@ export const selectCategory = (categoryId) => {
 
 export const getHealthStatusBar = () => {
     let serverName = 'ca.dev.lab';
+    //let serverName = '192.168.5.193';
     let username = 'administrator';
     let password = 'administrator';
-
     return (dispatch) => {
         dispatch({type: GETTING_HEALTH_STATUS});
-
         axios({
             method: 'GET',
             url: 'http://'+ serverName +'/mmws/api/command/GetHealthStatusBar?groupIntoArrays=true',
@@ -38,12 +37,34 @@ export const getHealthStatusBar = () => {
                 password: password
             }
         }).then(response => {
-            console.log('GET response: ', response.data.result.healthStatusBar.healthData);
             dispatch(getDataSuccess(response.data.result.healthStatusBar.healthData));
         }).catch((error) => {
             console.log('GET error', error);
         });
     };
+};
+
+export const getHealthStatusBar2 = () => {
+    let serverName = 'ca.dev.lab';
+    let username = 'administrator';
+    let password = 'administrator';
+
+    axios({
+        method: 'GET',
+        url: 'http://'+ serverName +'/mmws/api/command/GetHealthStatusBar?groupIntoArrays=true',
+        header: {
+            'content-type': 'application/json'
+        },
+        auth: {
+            username: username,
+            password: password
+        }
+    }).then(response => {
+        console.log('getHealthStatusBar:', response.data.result.healthStatusBar.healthData);
+        return response.data.result.healthStatusBar.healthData;
+    }).catch((error) => {
+        console.log('GET error', error);
+    });
 };
 
 export function getDataSuccess(data) {

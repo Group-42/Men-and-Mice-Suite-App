@@ -9,7 +9,6 @@ import {connect} from 'react-redux';
 import {CardSection} from './common';
 import {DashHealth} from "./DashHealth";
 import * as actions from '../actions/DashboardActions';
-import {getHealthStatusBar} from "../actions";
 
 class ListItem extends Component {
     componentWillUpdate() {
@@ -21,13 +20,25 @@ class ListItem extends Component {
         const {subsectionStyle} = styles;
         const {library, expanded} = this.props;
         if(expanded){
-            return(
-                <CardSection>
-                    <View  style={subsectionStyle}>
-                        {library.items.map((r) => <DashHealth key={r}>{r}</DashHealth>)}
-                    </View>
-                </CardSection>
-            );
+            if(library.subNotifications.length > 1) {
+                return (
+                    <CardSection>
+                        <View style={subsectionStyle}>
+                            {library.subNotifications.map((r) => <DashHealth healthStatus={r.status} key={r}>{r.description}</DashHealth>)}
+                        </View>
+                    </CardSection>
+                );
+            }
+            else if(library.subNotifications.lenght = 1) {
+                console.log('STATUS: ', library.subNotifications.notifications.status);
+                return (
+                    <CardSection>
+                        <View style={subsectionStyle}>
+                            <DashHealth healthStatus={library.subNotifications.notifications.status}>{library.subNotifications.notifications.description}</DashHealth>
+                        </View>
+                    </CardSection>
+                );
+            }
         }
     }
 
@@ -56,11 +67,10 @@ class ListItem extends Component {
 
     render() {
         const {titleStyle, boxStyle, cardStyle} = styles;
-        const {id, title} = this.props.library;
-        const {library} = this.props;
+        const {description} = this.props.library;
 
         return(
-            <TouchableWithoutFeedback onPress={() => this.props.selectCategory(title)}>
+            <TouchableWithoutFeedback onPress={() => this.props.selectCategory(description)}>
                 <View>
                     <CardSection style={cardStyle}>
                         <Image
@@ -69,7 +79,7 @@ class ListItem extends Component {
                             source={require('../icons/Dashboard_greencheck.png')}
                         />
                         <Text style={titleStyle}>
-                            {title}
+                            {description}
                         </Text>
                         {this.renderImage()}
                     </CardSection>
@@ -117,7 +127,7 @@ const styles = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const expanded = state.selectedCategory === ownProps.library.title;
+    const expanded = state.selectedCategory === ownProps.library.description;
     return {expanded};
 };
 

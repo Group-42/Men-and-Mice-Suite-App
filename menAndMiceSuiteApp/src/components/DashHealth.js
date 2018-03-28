@@ -7,23 +7,55 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
 
-const DashHealth = ({children}) => {
+const DashHealth = ({children, healthStatus}) => {
     const {viewStyle, textStyle, boxStyle} = styles;
 
-    return(
-        <View style={viewStyle}>
+    if(healthStatus === 'ok')
+    {
+        return(
+            <View style={viewStyle}>
+                <Image
+                    style={boxStyle}
+                    resizeMode='contain'
+                    source={require('../icons/Dashboard_greencheck.png')}
+                />
 
-            <Image
-                style={boxStyle}
-                resizeMode='contain'
-                source={require('../icons/Dashboard_greencheck.png')}
-            />
+                <Text style={textStyle}>
+                    {children}
+                </Text>
+            </View>
+        );
+    }
+    else if( healthStatus === 'warning'){
+        return(
+            <View style={viewStyle}>
+                <Image
+                    style={boxStyle}
+                    resizeMode='contain'
+                    source={require('../icons/Dashboard_yellowwarning.png')}
+                />
 
-            <Text style={textStyle}>
-                {children}
-            </Text>
-        </View>
-    );
+                <Text style={textStyle}>
+                    {children}
+                </Text>
+            </View>
+        );
+    }
+    else{
+        return(
+            <View style={viewStyle}>
+                <Image
+                    style={boxStyle}
+                    resizeMode='contain'
+                    source={require('../icons/Dashboard_rederror.png')}
+                />
+
+                <Text style={textStyle}>
+                    {children}
+                </Text>
+            </View>
+        );
+    }
 };
 
 const styles = {

@@ -15,7 +15,6 @@ import {
     SPINNER_START,
     USER_LOGOUT
 } from "./types";
-import {getHealthStatusBar} from "./DashboardActions";
 
 export const serverNameChanged = (text) => {
     return {
@@ -40,11 +39,11 @@ export const passwordChanged = (text) => {
 
 export const loginUser = ({serverName, username, password}) => {
     serverName = 'ca.dev.lab';
+    //serverName = '192.168.5.193';
     username = 'administrator';
     password = 'administrator';
     return(dispatch) => {
         dispatch({type: SPINNER_START});
-
         axios({
             method: 'GET',
             url: 'http://' + serverName + '/mmws/api/users/' + username,
@@ -77,6 +76,7 @@ const loginUserSuccess = (dispatch, user) => {
 };
 
 const loginUserFail = (dispatch) => {
+    console.log('LOGIN USER FAILED');
     dispatch({type: USER_LOGIN_FAIL});
 };
 
