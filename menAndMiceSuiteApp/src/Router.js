@@ -8,6 +8,7 @@ import {Scene, Router} from 'react-native-router-flux';
 import LoginForm from './components/LoginForm';
 import UserInfo from './components/UserInfo';
 import Dashboard from './components/Dashboard';
+import DashboardDetail from './components/DashboardDetail';
 
 const RouterComponent = () => {
     return(
@@ -17,7 +18,8 @@ const RouterComponent = () => {
                     <Scene key="login" component={LoginForm} title="Login" initial hideNavBar/>
                 </Scene>
                 <Scene key="main">
-                    <Scene key="user" component={Dashboard} title="Dashboard" initial hideNavBar/>
+                    <Scene key="dash" component={Dashboard} title="Dashboard" initial hideNavBar/>
+                    <scene key="dashDetail" component={DashboardDetail} title="Dashboard Detail" hideNavBar/>
                 </Scene>
             </Scene>
         </Router>

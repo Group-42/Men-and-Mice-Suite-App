@@ -3,8 +3,7 @@
 
     Contains all the functions needed for user authentication
  */
-import React, { Component } from 'react';
-import {AppRegistry, AsyncStorage} from 'react-native';
+import {AsyncStorage} from 'react-native';
 import axios from 'axios';
 import {Actions} from 'react-native-router-flux';
 import {

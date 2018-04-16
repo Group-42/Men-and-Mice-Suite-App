@@ -4,18 +4,35 @@
     Contains all functions that dashboard will use
  */
 import {AsyncStorage} from 'react-native';
+import {Actions, ActionConst} from 'react-native-router-flux';
 import axios from 'axios';
 import {
     SELECT_CATEGORY,
+    SELECT_SUBCATEGORY,
     GET_HEALTH_STATUS_SUCCESS,
     GETTING_HEALTH_STATUS_FAIL,
-    GETTING_HEALTH_STATUS
+    GETTING_HEALTH_STATUS,
+    FETCHING_USER_INFO_SUCCESS
 } from './types';
 
 export const selectCategory = (categoryId) => {
     return {
         type: SELECT_CATEGORY,
         payload: categoryId
+    };
+};
+
+export const selectSubcategory = (subcategoryData) => {
+    return (dispatch) => {
+        dispatch({
+            type: SELECT_SUBCATEGORY,
+            payload: subcategoryData
+        });
+        console.log(subcategoryData);
+        if(subcategoryData.status !== 'ok') {
+            Actions.main({type: ActionConst.RESET});
+            Actions.dashDetail();
+        }
     };
 };
 
@@ -38,7 +55,7 @@ const getUserInfo = async() => {
         });
 
     return [serverName, username, password];
-}
+};
 
 export const getHealthStatusBar = () => {
     let serverName;
@@ -52,6 +69,7 @@ export const getHealthStatusBar = () => {
             serverName = info[0];
             username = info[1];
             password = info[2];
+            dispatch({type: FETCHING_USER_INFO_SUCCESS, payload: info});
         });
 
         await axios({
@@ -74,7 +92,10 @@ export const getHealthStatusBar = () => {
 
 export function getDataSuccess(data) {
     console.log('getDataSuccess:', data);
-    return {type: GET_HEALTH_STATUS_SUCCESS, payload: data}
+    return {
+        type: GET_HEALTH_STATUS_SUCCESS,
+        payload: data
+    }
 }
 
 export function getDataFail() {

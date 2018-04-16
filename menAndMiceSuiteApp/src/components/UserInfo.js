@@ -7,13 +7,12 @@
 import React, {Component} from 'react';
 import {Text} from 'react-native';
 import {connect} from 'react-redux';
-import {logoutUser, getHealthStatusBar} from "../actions";
+import {logoutUser} from "../actions";
 import {Button, Card, CardSection, Spinner} from "./common";
 
 class UserInfo extends Component{
     constructor(props) {
         super(props);
-        this.props.getHealthStatusBar();
     }
     onButtonPress() {
     }
@@ -35,7 +34,12 @@ class UserInfo extends Component{
             <Card>
                 <CardSection>
                     <Text>
-                        Username: {this.props.user.data.result.user.name}
+                        Username: {this.props.user[1]}
+                    </Text>
+                </CardSection>
+                <CardSection>
+                    <Text>
+                        Subcategory: {this.props.subcategoryData.description}
                     </Text>
                 </CardSection>
                 <CardSection>
@@ -51,10 +55,10 @@ class UserInfo extends Component{
     }
 }
 
-const mapStateToProps = ({auth, healthStatus}) => {
-    const {user} = auth;
-    const {isFetching, data} = healthStatus;
-    return {user, isFetching, data};
+const mapStateToProps = ({healthStatus, selectedCategory}) => {
+    const {data, user} = healthStatus;
+    const {subcategoryData} = selectedCategory;
+    return {user, data, subcategoryData};
 };
 
-export default connect(mapStateToProps, {logoutUser, getHealthStatusBar})(UserInfo);
+export default connect(mapStateToProps, {logoutUser})(UserInfo);
