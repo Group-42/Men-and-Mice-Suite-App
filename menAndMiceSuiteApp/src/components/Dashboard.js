@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import ListItem from './ListItem';
 import {Header, Spinner} from "./common";
 import {getHealthStatusBar, getHealthStatusBar2} from "../actions";
+import {BurgerMenu} from "./common/BurgerMenu";
 
 class Dashboard extends Component{
     constructor(props) {
@@ -53,6 +54,7 @@ class Dashboard extends Component{
     renderRow(library) {
         return <ListItem library={library}/>
     }
+
 
     render() {
         const {dashboardStyle} = styles;

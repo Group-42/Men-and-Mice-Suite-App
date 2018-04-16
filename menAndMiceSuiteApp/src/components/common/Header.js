@@ -1,26 +1,28 @@
 // import libraries for making a component
 import React from 'react';
-import {Text, View, Image} from 'react-native';
+import { Text, View, Image, TouchableNativeFeedback } from 'react-native';
+import { BurgerMenu } from "./BurgerMenu";
 
 // make a component
-const Header = (props) => {
+const Header = ({ onPress, headerText }) => {
     const { textStyle, viewStyle, boxStyle, burgerStyle } = styles;
 
-    return (
-        <View style={viewStyle}>
-            <Image
-                style={boxStyle}
-                resizeMode='contain'
-                source={require('../../icons/icon.png')}
-            />
-            <Text style={textStyle}>{props.headerText}</Text>
+    return <View style={viewStyle}>
+        <Image
+            style={boxStyle}
+            resizeMode='contain'
+            source={require('../../icons/icon.png')}
+        />
+
+        <Text style={textStyle}>{headerText}</Text>
+
+        <TouchableNativeFeedback onPress={ onPress }>
             <Image
                 style={burgerStyle}
                 source={require('../../icons/hamburger.png')}
             />
-        </View>
-
-    );
+        </TouchableNativeFeedback>
+    </View>;
 };
 
 const styles = {

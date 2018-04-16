@@ -25,7 +25,8 @@ class ListItem extends Component {
                 return (
                     <CardSection>
                         <View style={subsectionStyle}>
-                            {library.subNotifications.map((r) => <DashHealth healthStatus={r.status} key={r}>{r.description}</DashHealth>)}
+                            {library.subNotifications.map((r) => <DashHealth healthStatus={r.status}
+                                                                             key={r}>{r.description}</DashHealth>)}
                         </View>
                     </CardSection>
                 );
@@ -35,7 +36,8 @@ class ListItem extends Component {
                 return (
                     <CardSection>
                         <View style={subsectionStyle}>
-                            <DashHealth healthStatus={library.subNotifications.notifications.status}>{library.subNotifications.notifications.description}</DashHealth>
+                            <DashHealth healthStatus={library.subNotifications.notifications.status}>
+                                {library.subNotifications.notifications.description}</DashHealth>
                         </View>
                     </CardSection>
                 );
