@@ -1,51 +1,52 @@
-import React from 'react';
-import {Text, View, Image} from 'react-native';
+import React, {Component} from 'react';
+import {Image} from 'react-native';
+import {connect} from "react-redux";
+import {Actions} from 'react-native-router-flux';
+import {logoutUser} from "../../actions";
 import {
     Menu,
-    MenuProvider,
     MenuOptions,
     MenuOption,
     MenuTrigger,
 } from 'react-native-popup-menu';
 
-const BurgerMenu = (props) => {
-    const { container, popup } = styles;
+class BurgerMenu extends Component {
 
+    render() {
+        return(
+            <Menu>
+                <MenuTrigger>
+                    <Image
+                        style={styles.burgerStyle}
+                        source={require('../../icons/hamburger.png')}
+                    />
+                </MenuTrigger>
+                <MenuOptions>
+                    <MenuOption onSelect={() => Actions.dashboard()} text='Dashboard'/>
+                    <MenuOption onSelect={() => alert(`Troubleshoot DNS, Coming Soon`)} text='Troubleshoot DNS'/>
+                    <MenuOption onSelect={() => alert(`Allocate IP, Coming Soon`)} text='Allocate IP'/>
+                    <MenuOption onSelect={() => Actions.testArea()} text='Settings'/>
+                    <MenuOption onSelect={this.props.logoutUser.bind(this)} text='Log Out'/>
+                </MenuOptions>
+            </Menu>
+        );
+    }
+}
 
-    console.log('test2');
+const mapStateToProps = ({auth}) => {
+    const {user} = auth;
 
-    return (
-        <MenuProvider style={container}>
-            <View>
-                {console.log('works og Oddur vill einhverja stupid thumbs up so ok then.... thumbs up!!')}
-                <Menu>
-                    <MenuOptions>
-                        <MenuOption onSelect={() => alert(`Save`)} text="Save" />
-                        <MenuOption onSelect={() => alert(`Delete`)}>
-                            <Text style={{ color: 'red' }}>Delete</Text>
-                        </MenuOption>
-                        <MenuOption
-                            onSelect={() => alert(`Not called`)}
-                            disabled={true}
-                            text="Disabled"
-                        />
-                    </MenuOptions>
-                </Menu>
-            </View>
-        </MenuProvider>
-    );
+    return {user};
 };
 
 const styles = {
-    container: {
-        backgroundColor: '#ecf0f1',
-    },
-    popup: {
-        zIndex: 5,
-        position: 'absolute',
+    burgerStyle: {
+        top: 10,
+        right: 10,
+        width: 40,
+        height: 40,
+        backgroundColor:'#29495b',
     }
 };
 
-// make the component available to other parts of the app
-export { BurgerMenu };
-
+export default connect(mapStateToProps, {logoutUser})(BurgerMenu);

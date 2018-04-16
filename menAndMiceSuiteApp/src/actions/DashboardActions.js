@@ -38,7 +38,7 @@ const getUserInfo = async() => {
         });
 
     return [serverName, username, password];
-}
+};
 
 export const getHealthStatusBar = () => {
     let serverName;
@@ -65,6 +65,7 @@ export const getHealthStatusBar = () => {
                 password: password
             }
         }).then(response => {
+            console.log('RESPONSE: ', response);
             dispatch(getDataSuccess(response.data.result.healthStatusBar.healthData));
         }).catch((error) => {
             console.log('GET error', error);

@@ -7,39 +7,25 @@
 import React, {Component} from 'react';
 import {Text} from 'react-native';
 import {connect} from 'react-redux';
-import {logoutUser, getHealthStatusBar} from "../actions";
-import {Button, Card, CardSection, Spinner} from "./common";
+import {logoutUser} from "../actions";
+import {Button, Card, CardSection, Header} from "./common";
 
 class UserInfo extends Component{
     constructor(props) {
         super(props);
-        this.props.getHealthStatusBar();
-    }
-    onButtonPress() {
-    }
-
-    renderButton() {
-        if(this.props.isFetching) {
-            return <Spinner size="large"/>
-        }
-
-        return(
-            <Button onPress={this.onButtonPress.bind(this)}>
-                GET USER INFO
-            </Button>
-        );
     }
 
     render() {
         return(
             <Card>
+                <Header headerText={'TEST AREA'}/>
                 <CardSection>
                     <Text>
                         Username: {this.props.user.data.result.user.name}
                     </Text>
                 </CardSection>
                 <CardSection>
-                    {this.renderButton()}
+
                 </CardSection>
                 <CardSection>
                     <Button onPress={this.props.logoutUser}>
@@ -57,4 +43,4 @@ const mapStateToProps = ({auth, healthStatus}) => {
     return {user, isFetching, data};
 };
 
-export default connect(mapStateToProps, {logoutUser, getHealthStatusBar})(UserInfo);
+export default connect(mapStateToProps, {logoutUser})(UserInfo);

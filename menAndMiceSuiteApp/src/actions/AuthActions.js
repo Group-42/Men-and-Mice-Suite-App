@@ -3,8 +3,8 @@
 
     Contains all the functions needed for user authentication
  */
-import React, { Component } from 'react';
-import {AppRegistry, AsyncStorage} from 'react-native';
+import React from 'react';
+import {AsyncStorage} from 'react-native';
 import axios from 'axios';
 import {Actions} from 'react-native-router-flux';
 import {
@@ -92,8 +92,7 @@ const loginUserFail = (dispatch) => {
     dispatch({type: USER_LOGIN_FAIL});
 };
 
-
 const removeUserInfo = () => {
-    const value = AsyncStorage.multiRemove(['@MMStorage:serverName','@MMStorage:username', '@MMStorage:password']);
-    console.log('removeUserInfo: ', value);
+    AsyncStorage.multiRemove(['@MMStorage:serverName','@MMStorage:username', '@MMStorage:password'])
+        .then((value) => console.log('removeUserInfo: ', value));
 };

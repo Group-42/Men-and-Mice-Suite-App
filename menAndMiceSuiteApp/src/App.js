@@ -10,11 +10,11 @@ class App extends Component {
     render() {
         const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
         return (
-            <MenuProvider>
-                <Provider store={store}>
+            <Provider store={store}>
+                <MenuProvider>
                     <Router/>
-                </Provider>
-            </MenuProvider>
+                </MenuProvider>
+            </Provider>
         );
     }
 }

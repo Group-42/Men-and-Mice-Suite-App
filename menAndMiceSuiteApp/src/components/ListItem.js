@@ -9,7 +9,6 @@ import {connect} from 'react-redux';
 import {CardSection} from './common';
 import {DashHealth} from "./DashHealth";
 import * as actions from '../actions/DashboardActions';
-import {getHealthStatusBar} from "../actions";
 
 class ListItem extends Component {
     componentWillUpdate() {
@@ -125,8 +124,6 @@ class ListItem extends Component {
 const styles = {
     cardStyle: {
         flexDirection: 'row',
-
-
     },
     titleStyle: {
         fontFamily: 'ProximaNova-Light',

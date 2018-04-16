@@ -7,9 +7,8 @@ import React, {Component} from 'react';
 import {View, ListView} from 'react-native';
 import {connect} from 'react-redux';
 import ListItem from './ListItem';
-import {Header, Spinner} from "./common";
-import {getHealthStatusBar, getHealthStatusBar2} from "../actions";
-import {BurgerMenu} from "./common/BurgerMenu";
+import {Header, Spinner, BurgerMenu} from "./common";
+import {getHealthStatusBar, logoutUser} from "../actions";
 
 class Dashboard extends Component{
     constructor(props) {
@@ -36,8 +35,7 @@ class Dashboard extends Component{
         this.dataSource = ds.cloneWithRows(data);
     }
 
-    renderDash()
-    {
+    renderDash() {
         if(this.props.isFetching)
         {
             return <Spinner size="large"/>
@@ -62,6 +60,7 @@ class Dashboard extends Component{
         return(
             <View style={dashboardStyle}>
                 <Header headerText={'Dashboard'}/>
+
                 {this.renderDash()}
             </View>
         );
@@ -79,4 +78,4 @@ const styles = {
         flex: 1
     }
 };
-export default connect(mapStateToProps,{getHealthStatusBar})(Dashboard);
+export default connect(mapStateToProps,{getHealthStatusBar, logoutUser})(Dashboard);
