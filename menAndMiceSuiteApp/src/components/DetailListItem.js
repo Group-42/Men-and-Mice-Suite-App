@@ -10,6 +10,10 @@ class DetailListItem extends Component {
         return (
             <Card>
                 <CardSection>
+                    <Text style={ textStyleHeader }> Severity: </Text>
+                    <Text style={ textStyle }> { severity }</Text>
+                </CardSection>
+                <CardSection>
                     <Text style={ textStyleHeader }> Name: </Text>
                     <Text style={ textStyle }> { name }</Text>
                 </CardSection>
@@ -20,10 +24,6 @@ class DetailListItem extends Component {
                 <CardSection>
                     <Text style={ textStyleHeader }> First Seen: </Text>
                     <Text style={ textStyle }> { firstseen }</Text>
-                </CardSection>
-                <CardSection>
-                    <Text style={ textStyleHeader }> Severity: </Text>
-                    <Text style={ textStyle }> { severity }</Text>
                 </CardSection>
                 <View style={ endOfCardStyle }/>
             </Card>
