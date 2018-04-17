@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "fastlane": "^0.1.0",
     "react": "^16.2.0",
     "react-native": "^0.53.3",
+    "react-native-popup-menu": "^0.12.5",
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
@@ -25,8 +27,8 @@
     "preset": "react-native"
   },
   "rnpm": {
-	"assets": [
-		"./src/fonts/"
-	]
+    "assets": [
+      "./src/fonts/"
+    ]
   }
 }

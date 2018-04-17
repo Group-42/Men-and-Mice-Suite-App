@@ -1,26 +1,23 @@
 // import libraries for making a component
 import React from 'react';
 import { Text, View, Image } from 'react-native';
+import BurgerMenu from "./BurgerMenu";
 
 // make a component
-const Header = ( props ) => {
-    const { textStyle, viewStyle, boxStyle, burgerStyle } = styles;
+const Header = ({ onPress, headerText }) => {
+    const { textStyle, viewStyle, boxStyle} = styles;
 
-    return (
-        <View style={ viewStyle }>
-            <Image
-                style={ boxStyle }
-                resizeMode='contain'
-                source={require('../../icons/icon.png')}
-            />
-            <Text style={ textStyle }>{ props.headerText }</Text>
-            <Image
-                style={ burgerStyle }
-                source={require('../../icons/hamburger.png')}
-            />
-        </View>
+    return <View style={viewStyle}>
+        <Image
+            style={boxStyle}
+            resizeMode='contain'
+            source={require('../../icons/icon.png')}
+        />
 
-    );
+        <Text style={textStyle}>{headerText}</Text>
+
+        <BurgerMenu headerText={headerText}/>
+    </View>
 };
 
 const styles = {
@@ -41,13 +38,8 @@ const styles = {
         top: 2.5,
         left: 2.5,
         width: 55,
-        height: 55
-    },
-    burgerStyle: {
-        top: 10,
-        right: 10,
-        width: 40,
-        height: 40
+        height: 55,
+        backgroundColor:'#29495b',
     }
 };
 

@@ -35,8 +35,7 @@ class Dashboard extends Component{
         this.dataSource = ds.cloneWithRows(data);
     }
 
-    renderDash()
-    {
+    renderDash() {
         if(this.props.isFetching)
         {
             return <Spinner size="large"/>
@@ -53,6 +52,7 @@ class Dashboard extends Component{
     renderRow( library ) {
         return <ListItem library={ library }/>
     }
+
 
     render() {
         const {dashboardStyle} = styles;
