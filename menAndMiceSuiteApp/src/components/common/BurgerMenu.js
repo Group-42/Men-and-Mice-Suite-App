@@ -23,9 +23,9 @@ class BurgerMenu extends Component {
                 </MenuTrigger>
                 <MenuOptions>
                     <MenuOption onSelect={() => Actions.dashboard()} text='Dashboard'/>
-                    <MenuOption onSelect={() => alert(`Troubleshoot DNS, Coming Soon`)} text='Troubleshoot DNS'/>
-                    <MenuOption onSelect={() => alert(`Allocate IP, Coming Soon`)} text='Allocate IP'/>
-                    <MenuOption onSelect={() => Actions.testArea()} text='Settings'/>
+                    <MenuOption onSelect={() => Actions.troubleshoot()} text='Troubleshoot DNS'/>
+                    <MenuOption onSelect={() => Actions.allocate()} text='Allocate IP'/>
+                    <MenuOption onSelect={() => Actions.settings()} text='Settings'/>
                     <MenuOption onSelect={this.props.logoutUser.bind(this)} text='Log Out'/>
                 </MenuOptions>
             </Menu>
