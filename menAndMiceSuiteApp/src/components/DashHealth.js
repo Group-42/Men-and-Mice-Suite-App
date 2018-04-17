@@ -75,7 +75,7 @@ const styles = {
         width: 30,
         height: 30,
         marginTop: 7,
-        borderColor: 'black',
+        borderColor: '#000',
         borderWidth: 1
     }
 };

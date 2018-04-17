@@ -47,7 +47,7 @@ class LoginForm extends Component {
         }
 
         return(
-            <Button onPress={this.onButtonPress.bind(this)}>
+            <Button Enter onPress={this.onButtonPress.bind(this)}>
                 Login
             </Button>
         );
@@ -110,14 +110,13 @@ const styles = {
         flexShrink: 1,
         height: 90,
         marginTop: 35,
-        marginBottom: 35
+        marginBottom: 45
     },
     errorTextStyle: {
         fontFamily: 'ProximaNova-Light',
         fontSize: 20,
         alignSelf: 'center',
         color: '#dc143c',
-        backgroundColor: '#29495B'
     }
 };
 

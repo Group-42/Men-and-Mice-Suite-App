@@ -103,7 +103,6 @@ class ListItem extends Component {
                     />
                 );
         }
-
     }
 
 
@@ -131,8 +130,6 @@ class ListItem extends Component {
 const styles = {
     cardStyle: {
         flexDirection: 'row',
-
-
     },
     titleStyle: {
         fontFamily: 'ProximaNova-Light',
@@ -148,7 +145,7 @@ const styles = {
         marginLeft: 6,
         width: 30,
         height: 30,
-        borderColor: 'black',
+        borderColor: '#000',
         borderWidth: 1
     },
     subsectionStyle: {

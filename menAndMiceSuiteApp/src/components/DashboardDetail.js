@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
-import {View, ListView} from 'react-native';
-import {connect} from 'react-redux';
-import {CardSection, Header} from "./common";
+import React, { Component } from 'react';
+import { ScrollView, ListView, Text, View } from 'react-native';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+import { CardSection, Header, BackButton } from "./common";
 import DetailListItem from './DetailListItem';
-import {DashHealth} from './DashHealth';
+import { DashHealth } from './DashHealth';
 
 class DashboardDetail extends Component {
     constructor() {
@@ -26,32 +27,62 @@ class DashboardDetail extends Component {
         return <DetailListItem detailData={detailData}/>
     }
 
+    onButtonPress() {
+        Actions.pop();
+    }
+
+    renderButton() {
+        return(
+            <BackButton onPress={this.onButtonPress.bind(this)}/>
+        );
+    }
+
 
     render(){
-        const {dashboardStyle} = styles;
-        const {description, status} = this.props.subcategoryData;
+        const { dashboardStyle, endOfLineStyle, detailHeaderStyle } = styles;
+        const {description, status } = this.props.subcategoryData;
 
         return(
-            <View style={dashboardStyle}>
+            <View style={ dashboardStyle }>
                 <Header headerText={'Details'}/>
-                <DashHealth healthStatus={status}>
-                    {description}
-                </DashHealth>
-                <CardSection>
-                    <ListView
-                        dataSource={this.state.dataSource}
-                        renderRow={DashboardDetail.renderRow}
-                    />
-                </CardSection>
+                <View style={ detailHeaderStyle }>
+                    {this.renderButton()}
+
+                    <DashHealth healthStatus={ status }>
+                        {description}
+                    </DashHealth>
+                </View>
+                <ScrollView>
+                    <CardSection>
+                        <ListView
+                            dataSource={ this.state.dataSource }
+                            renderRow={ DashboardDetail.renderRow }
+                        />
+                    </CardSection>
+                    <Text style={ endOfLineStyle }>
+                        End of Line
+                    </Text>
+                </ScrollView>
             </View>
         );
     }
 }
 
 const styles = {
+    detailHeaderStyle: {
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        borderBottomWidth: 1,
+        borderColor: '#f5f5f5'
+    },
     dashboardStyle: {
         backgroundColor: '#29495B',
         flex: 1
+    },
+    endOfLineStyle: {
+        fontFamily: 'ProximaNova-Bold',
+        textAlign: 'center',
+        color: '#f5f5f5'
     }
 };
 

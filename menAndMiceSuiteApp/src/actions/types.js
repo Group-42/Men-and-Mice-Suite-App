@@ -14,7 +14,7 @@ export const USER_LOGOUT = 'user_logout';
 
 //### DASHBOARD
 export const SELECT_CATEGORY = 'selected_category';
-export const SELECT_SUBCATEGORY = 'selcted_subcategory';
+export const SELECT_SUBCATEGORY = 'selected_subcategory';
 export const FETCHING_USER_INFO = 'fetching_user_info';
 export const FETCHING_USER_INFO_SUCCESS = 'fetching_user_info_success';
 export const FETCHING_USER_INFO_FAIL = 'fetching_user_info_fail';
