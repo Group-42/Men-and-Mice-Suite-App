@@ -22,11 +22,9 @@ const Header = ({ onPress, headerText }) => {
 
 const styles = {
     viewStyle: {
-        backgroundColor: '#29495b',
         justifyContent: 'space-between',
         flexDirection: 'row',
         height: 61,
-        position: 'relative',
         borderBottomWidth: 1,
         borderColor: '#f5f5f5'
     },

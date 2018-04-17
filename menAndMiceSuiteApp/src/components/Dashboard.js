@@ -3,12 +3,12 @@
 
     Dashboard overview of the health of all the different systems, displayed in expandable/collapsible listview
  */
-import React, {Component} from 'react';
-import {View, ListView} from 'react-native';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { View, ListView } from 'react-native';
+import { connect } from 'react-redux';
 import ListItem from './ListItem';
-import {Header, Spinner, BurgerMenu} from "./common";
-import {getHealthStatusBar, logoutUser} from "../actions";
+import { Header, Spinner } from "./common";
+import { getHealthStatusBar } from "../actions";
 
 class Dashboard extends Component{
     constructor(props) {
@@ -42,15 +42,15 @@ class Dashboard extends Component{
         }
         return(
             <ListView
-                dataSource={this.dataSource}
-                renderRow={this.renderRow}
-                enableEmptySections={true}
+                dataSource={ this.dataSource }
+                renderRow={ this.renderRow }
+                enableEmptySections={ true }
             />
         );
     }
 
-    renderRow(library) {
-        return <ListItem library={library}/>
+    renderRow( library ) {
+        return <ListItem library={ library }/>
     }
 
 
@@ -58,18 +58,17 @@ class Dashboard extends Component{
         const {dashboardStyle} = styles;
 
         return(
-            <View style={dashboardStyle}>
+            <View style={ dashboardStyle }>
                 <Header headerText={'Dashboard'}/>
-
-                {this.renderDash()}
+                { this.renderDash() }
             </View>
         );
     }
 }
 
-const mapStateToProps = ({healthStatus}) => {
-    const {isFetching, data} = healthStatus;
-    return {isFetching, data};
+const mapStateToProps = ({ healthStatus }) => {
+    const { isFetching, data } = healthStatus;
+    return { isFetching, data };
 };
 
 const styles = {
@@ -78,4 +77,4 @@ const styles = {
         flex: 1
     }
 };
-export default connect(mapStateToProps,{getHealthStatusBar, logoutUser})(Dashboard);
+export default connect( mapStateToProps,{ getHealthStatusBar })( Dashboard );

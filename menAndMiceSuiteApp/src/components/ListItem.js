@@ -8,7 +8,7 @@ import {Text, TouchableWithoutFeedback, View, LayoutAnimation, UIManager, Image}
 import {connect} from 'react-redux';
 import {CardSection} from './common';
 import {DashHealth} from "./DashHealth";
-import * as actions from '../actions/DashboardActions';
+import {selectSubcategory, selectCategory} from '../actions/DashboardActions';
 
 class ListItem extends Component {
     componentWillUpdate() {
@@ -16,7 +16,9 @@ class ListItem extends Component {
         LayoutAnimation.spring();
     }
 
-    renderDescription() {
+    // renders subcategories when category is pressed and expands
+    // there is a special when there is only one subcategory, since they are structured differently
+    renderSubcategories() {
         const {subsectionStyle} = styles;
         const {library, expanded} = this.props;
         if(expanded){
@@ -24,19 +26,25 @@ class ListItem extends Component {
                 return (
                     <CardSection>
                         <View style={subsectionStyle}>
-                            {library.subNotifications.map((r) => <DashHealth healthStatus={r.status}
-                                                                             key={r}>{r.description}</DashHealth>)}
+                            {library.subNotifications.map((r) => <DashHealth
+                                healthStatus={r.status}
+                                onPress={() => this.props.selectSubcategory(r)}
+                                key={r}>
+                                {r.description}
+                                </DashHealth>)}
                         </View>
                     </CardSection>
                 );
             }
             else if(library.subNotifications.lenght = 1) {
-                console.log('STATUS: ', library.subNotifications.notifications.status);
                 return (
                     <CardSection>
                         <View style={subsectionStyle}>
-                            <DashHealth healthStatus={library.subNotifications.notifications.status}>
-                                {library.subNotifications.notifications.description}</DashHealth>
+                            <DashHealth
+                                healthStatus={library.subNotifications.notifications.status}
+                                onPress={() => this.props.selectSubcategory(library.subNotifications.notifications)}>
+                                    {library.subNotifications.notifications.description}
+                            </DashHealth>
                         </View>
                     </CardSection>
                 );
@@ -68,41 +76,39 @@ class ListItem extends Component {
 
     renderHealthStatus(healthStatus) {
         const {boxStyle} = styles;
-        if(healthStatus === 'ok') {
-            return(
-                <Image
-                    style={boxStyle}
-                    resizeMode='contain'
-                    source={require('../icons/Dashboard_greencheck.png')}
-                />
-            );
-        }
-        else if(healthStatus === 'warning') {
-            return(
-                <Image
-                    style={boxStyle}
-                    resizeMode='contain'
-                    source={require('../icons/Dashboard_yellowwarning.png')}
-                />
-            );
-        }
-        else {
-            return (
-                <Image
-                    style={boxStyle}
-                    resizeMode='contain'
-                    source={require('../icons/Dashboard_rederror.png')}
-                />
-            );
-        }
 
+        switch(healthStatus){
+            case 'ok':
+                return(
+                    <Image
+                        style={boxStyle}
+                        resizeMode='contain'
+                        source={require('../icons/Dashboard_greencheck.png')}
+                    />
+                );
+            case 'warning':
+                return (
+                    <Image
+                        style={boxStyle}
+                        resizeMode='contain'
+                        source={require('../icons/Dashboard_yellowwarning.png')}
+                    />
+                );
+            default:
+                return (
+                    <Image
+                        style={boxStyle}
+                        resizeMode='contain'
+                        source={require('../icons/Dashboard_rederror.png')}
+                    />
+                );
+        }
     }
 
 
     render() {
         const {titleStyle, cardStyle} = styles;
         const {description, status} = this.props.library;
-        console.log('health status: ', status);
 
         return(
             <TouchableWithoutFeedback onPress={() => this.props.selectCategory(description)}>
@@ -114,7 +120,7 @@ class ListItem extends Component {
                         </Text>
                         {this.renderImage()}
                     </CardSection>
-                    {this.renderDescription()}
+                    {this.renderSubcategories()}
                 </View>
             </TouchableWithoutFeedback>
         );
@@ -139,7 +145,7 @@ const styles = {
         marginLeft: 6,
         width: 30,
         height: 30,
-        borderColor: 'black',
+        borderColor: '#000',
         borderWidth: 1
     },
     subsectionStyle: {
@@ -160,4 +166,4 @@ const mapStateToProps = (state, ownProps) => {
     return {expanded};
 };
 
-export default connect(mapStateToProps, actions)(ListItem);
+export default connect(mapStateToProps, {selectSubcategory, selectCategory})(ListItem);
