@@ -58,17 +58,15 @@ class ListItem extends Component {
         if(this.props.expanded) {
             return(
                 <Image
-                    style={arrowStyle}
-                    resizeMode='contain'
                     source={require('../icons/Dashboard_opened.png')}
+                    style={arrowStyle}
                 />
             );
         } else {
             return (
                 <Image
-                    style={arrowStyle}
-                    resizeMode='contain'
                     source={require('../icons/Dashboard_closed.png')}
+                    style={arrowStyle}
                 />
             );
         }
@@ -81,25 +79,22 @@ class ListItem extends Component {
             case 'ok':
                 return(
                     <Image
-                        style={boxStyle}
-                        resizeMode='contain'
                         source={require('../icons/Dashboard_greencheck.png')}
+                        style={boxStyle}
                     />
                 );
             case 'warning':
                 return (
                     <Image
-                        style={boxStyle}
-                        resizeMode='contain'
                         source={require('../icons/Dashboard_yellowwarning.png')}
+                        style={boxStyle}
                     />
                 );
             default:
                 return (
                     <Image
-                        style={boxStyle}
-                        resizeMode='contain'
                         source={require('../icons/Dashboard_rederror.png')}
+                        style={boxStyle}
                     />
                 );
         }
@@ -153,11 +148,8 @@ const styles = {
         marginLeft: 25
     },
     arrowStyle: {
-        marginTop: 20,
-        marginLeft: 25,
-        marginRight: 10,
         width: 15,
-        height: 15
+        height: 25
     }
 };
 

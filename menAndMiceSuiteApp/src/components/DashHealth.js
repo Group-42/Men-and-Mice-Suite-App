@@ -15,9 +15,8 @@ const DashHealth = ({children, healthStatus, onPress}) => {
         return(
             <TouchableOpacity onPress={onPress} style={viewStyle}>
                 <Image
-                    style={boxStyle}
-                    resizeMode='contain'
                     source={require('../icons/Dashboard_greencheck.png')}
+                    style={boxStyle}
                 />
 
                 <Text style={textStyle}>
@@ -30,9 +29,8 @@ const DashHealth = ({children, healthStatus, onPress}) => {
         return(
             <TouchableOpacity onPress={onPress} style={viewStyle}>
                 <Image
-                    style={boxStyle}
-                    resizeMode='contain'
                     source={require('../icons/Dashboard_yellowwarning.png')}
+                    style={boxStyle}
                 />
 
                 <Text style={textStyle}>
@@ -45,9 +43,8 @@ const DashHealth = ({children, healthStatus, onPress}) => {
         return(
             <TouchableOpacity onPress={onPress} style={viewStyle}>
                 <Image
-                    style={boxStyle}
-                    resizeMode='contain'
                     source={require('../icons/Dashboard_rederror.png')}
+                    style={boxStyle}
                 />
 
                 <Text style={textStyle}>
