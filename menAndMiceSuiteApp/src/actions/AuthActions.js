@@ -39,9 +39,12 @@ export const passwordChanged = (text) => {
 
 
 export const loginUser = ({serverName, username, password}) => {
-    serverName = 'ca.dev.lab';
-    username = 'administrator';
-    password = 'administrator';
+    if(serverName.trim()  === '' && username.trim() === '' && password.trim() === '') {
+        serverName = 'blackstar.thorlacius.com';
+        username = 'administrator';
+        password = 'administrator';
+    }
+
     return(dispatch) => {
         dispatch({type: SPINNER_START});
         axios({
@@ -76,7 +79,7 @@ export const logoutUser = () => {
     return(dispatch) => {
         dispatch({type: USER_LOGOUT});
         removeUserInfo();
-        Actions.auth();
+        Actions.reset('auth');
     }
 };
 
