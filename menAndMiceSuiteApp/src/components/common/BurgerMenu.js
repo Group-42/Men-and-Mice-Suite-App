@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, Image } from 'react-native';
 import { connect } from "react-redux";
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import { logoutUser } from "../../actions";
 import {
     Menu,
@@ -11,6 +11,10 @@ import {
 } from 'react-native-popup-menu';
 
 class BurgerMenu extends Component {
+    replace(scene){
+        Actions.pop();
+        Actions.push(scene);
+    }
 
     render() {
         const { burgerStyle, menuStyle, textStyle } = styles;
@@ -24,16 +28,16 @@ class BurgerMenu extends Component {
                     />
                 </MenuTrigger>
                 <MenuOptions style={ menuStyle }>
-                    <MenuOption onSelect={() => Actions.dashboard()}>
+                    <MenuOption onSelect={() => this.replace('dashboard')}>
                         <Text style={ textStyle }> Dashboard </Text>
                     </MenuOption>
-                    <MenuOption onSelect={() => Actions.troubleshoot()}>
+                    <MenuOption onSelect={() => this.replace('troubleshoot')}>
                         <Text style={ textStyle }> Troubleshoot DNS </Text>
                     </MenuOption>
-                    <MenuOption onSelect={() => Actions.allocate()}>
+                    <MenuOption onSelect={() => this.replace('allocate')}>
                         <Text style={ textStyle }> Allocate IP </Text>
                     </MenuOption>
-                    <MenuOption onSelect={() => Actions.settings()}>
+                    <MenuOption onSelect={() => this.replace('settings')}>
                         <Text style={ textStyle }> Settings </Text>
                     </MenuOption>
                     <MenuOption onSelect={this.props.logoutUser.bind(this)}>
