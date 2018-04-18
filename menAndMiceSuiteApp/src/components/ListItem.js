@@ -148,8 +148,11 @@ const styles = {
         marginLeft: 25
     },
     arrowStyle: {
+        marginTop: 20,
+        marginLeft: 25,
+        marginRight: 10,
         width: 15,
-        height: 25
+        height: 15
     }
 };
 
