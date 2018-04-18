@@ -23,8 +23,7 @@ const RouterComponent = () => {
                     <Scene key="allocate" component={Allocate} title="Allocate IP" hideNavBar/>
                     <Scene key="troubleshoot" component={Troubleshoot} title="Troubleshoot DNS" hideNavBar/>
                     <Scene key="settings" component={Settings} title="Settings" hideNavBar/>
-                    <Scene key="testArea" component={UserInfo} title="Test Area" hideNavBar/>
-                    <Scene key="dash" component={ Dashboard } title="Dashboard" initial hideNavBar/>
+                    <Scene key="dashboard" component={ Dashboard } title="Dashboard" initial hideNavBar/>
                     <scene key="dashDetail" component={ DashboardDetail } title="Dashboard Detail" hideNavBar/>
                 </Scene>
             </Scene>

@@ -4,8 +4,10 @@ import {Header, CardSection} from "./common";
 
 class Troubleshoot extends Component {
     render() {
+        const {troubleshootStyle} = styles;
+
         return(
-            <View>
+            <View style={ troubleshootStyle }>
                 <Header headerText={'Troubleshoot DNS'}/>
                 <CardSection>
                     <Text style={{color: 'white'}}>Troubleshoot DNS, coming soon to a app near you</Text>
@@ -14,5 +16,12 @@ class Troubleshoot extends Component {
         );
     }
 }
+
+const styles = {
+    troubleshootStyle: {
+        backgroundColor: '#29495B',
+        flex: 1
+    }
+};
 
 export default Troubleshoot;

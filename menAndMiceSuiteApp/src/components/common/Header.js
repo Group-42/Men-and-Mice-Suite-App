@@ -39,7 +39,7 @@ const styles = {
         left: 2.5,
         width: 55,
         height: 55,
-        backgroundColor:'#29495b',
+        backgroundColor:'#29495b'
     }
 };
 

@@ -1,18 +1,27 @@
 import React, {Component} from 'react'
 import {View, Text} from 'react-native'
-import {Header, CardSection} from "./common";
+import {Header, Card} from "./common";
 
 class Allocate extends Component {
     render() {
+        const {allocateStyle} = styles;
+
         return(
-            <View>
+            <View style={ allocateStyle }>
                 <Header headerText={'Allocate IP'}/>
-                <CardSection>
+                <Card>
                     <Text style={{color: 'white'}}>Allocate IP, coming soon to a app near you</Text>
-                </CardSection>
+                </Card>
             </View>
         );
     }
 }
+
+const styles = {
+    allocateStyle: {
+        backgroundColor: '#29495B',
+        flex: 1
+    }
+};
 
 export default Allocate;
