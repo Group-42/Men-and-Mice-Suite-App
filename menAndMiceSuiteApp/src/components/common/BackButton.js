@@ -8,9 +8,8 @@ const BackButton = ({ onPress: onPress }) => {
     return (
         <TouchableOpacity onPress={ onPress } style={ buttonStyle }>
             <Image
-                style={arrowStyle}
-                resizeMode='contain'
                 source={require('../../icons/BackButton.png')}
+                style={arrowStyle}
             />
         </TouchableOpacity>
     );
@@ -25,12 +24,12 @@ const styles = {
         marginRight: 35
     },
     arrowStyle: {
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: 8,
+        marginBottom: 8,
         marginLeft: 10,
         marginRight: 10,
-        width: 15,
-        height: 15
+        width: 20,
+        height: 20
     }
 };
 

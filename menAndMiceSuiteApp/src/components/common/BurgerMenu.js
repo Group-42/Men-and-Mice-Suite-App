@@ -23,8 +23,8 @@ class BurgerMenu extends Component {
             <Menu>
                 <MenuTrigger>
                     <Image
-                        style={ burgerStyle }
                         source={require('../../icons/hamburger.png')}
+                        style={ burgerStyle }
                     />
                 </MenuTrigger>
                 <MenuOptions style={ menuStyle }>

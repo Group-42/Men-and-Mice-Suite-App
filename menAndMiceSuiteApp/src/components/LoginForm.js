@@ -59,9 +59,9 @@ class LoginForm extends Component {
                 <Card>
                     <CardSection>
                         <Image
+                            source={require('../icons/logo_dark.png')}
                             style={styles.imageStyle}
                             resizeMode='contain'
-                            source={require('../icons/logo_dark.png')}
                         />
                     </CardSection>
                     <CardSection>

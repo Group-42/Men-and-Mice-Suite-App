@@ -9,9 +9,8 @@ const Header = ({ onPress, headerText }) => {
 
     return <View style={viewStyle}>
         <Image
-            style={boxStyle}
-            resizeMode='contain'
             source={require('../../icons/icon.png')}
+            style={boxStyle}
         />
 
         <Text style={textStyle}>{headerText}</Text>
