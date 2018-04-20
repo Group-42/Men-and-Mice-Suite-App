@@ -47,7 +47,11 @@ class LoginForm extends Component {
         }
 
         return(
-            <Button Enter onPress={this.onButtonPress.bind(this)}>
+            <Button
+                onPress={this.onButtonPress.bind(this)}
+                buttonStyle={styles.buttonStyle}
+                textStyle={styles.textStyle}
+            >
                 Login
             </Button>
         );
@@ -117,6 +121,24 @@ const styles = {
         fontSize: 20,
         alignSelf: 'center',
         color: '#dc143c',
+    },
+    textStyle: {
+        alignSelf: 'center',
+        color: '#f7b52b',
+        fontFamily: 'ProximaNova-Bold',
+        fontSize: 16,
+        paddingTop: 10,
+        paddingBottom: 10
+    },
+    buttonStyle: {
+        flex: 1,
+        alignSelf: 'stretch',
+        borderRadius: 5,
+        borderWidth: 3,
+        borderColor: '#f7b52b',
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 50
     }
 };
 

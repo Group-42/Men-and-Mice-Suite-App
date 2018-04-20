@@ -9,9 +9,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "fastlane": "^0.1.0",
+    "prop-types": "latest",
     "react": "^16.2.0",
     "react-native": "^0.53.3",
+    "react-native-background-fetch": "^2.0.8",
+    "react-native-background-task": "^0.2.1",
     "react-native-popup-menu": "^0.12.5",
+    "react-native-queue": "^1.2.1",
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {View, Text} from 'react-native'
-import {Header, Card} from "./common";
+import {View, Text, Image} from 'react-native'
+import {Header, Card, Button, CardSection} from "./common";
 
 class Allocate extends Component {
     render() {
@@ -9,9 +9,15 @@ class Allocate extends Component {
         return(
             <View style={ allocateStyle }>
                 <Header headerText={'Allocate IP'}/>
-                <Card>
+                <CardSection>
                     <Text style={{color: 'white'}}>Allocate IP, coming soon to a app near you</Text>
-                </Card>
+                    <Button
+                        onPress={() => alert('SHOMETHING')}
+                        buttonStyle={styles.buttonStyle}
+                    >
+                        PRESS ME, AND SEE WHAT HAPPENS
+                    </Button>
+                </CardSection>
             </View>
         );
     }
@@ -21,6 +27,21 @@ const styles = {
     allocateStyle: {
         backgroundColor: '#29495B',
         flex: 1
+    },
+    textStyle: {
+        alignSelf: 'center',
+        color: '#f7b52b',
+        fontFamily: 'ProximaNova-Bold',
+        fontSize: 16,
+        paddingTop: 10,
+        paddingBottom: 10
+    },
+    buttonStyle: {
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#f7b52b',
+        margin: 5,
+        marginRight: 35,
     }
 };
 
