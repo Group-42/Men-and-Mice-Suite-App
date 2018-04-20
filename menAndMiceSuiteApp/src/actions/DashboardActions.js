@@ -12,7 +12,8 @@ import {
     GET_HEALTH_STATUS_SUCCESS,
     GETTING_HEALTH_STATUS_FAIL,
     GETTING_HEALTH_STATUS,
-    FETCHING_USER_INFO_SUCCESS
+    FETCHING_USER_INFO_SUCCESS,
+    BEEN_CLICKED
 } from './types';
 
 export const selectCategory = (categoryId) => {
@@ -39,10 +40,21 @@ export const selectSubcategory = (subcategoryData) => {
     };
 };
 
+export const backButtonPushed = () => {
+    return (dispatch) => {
+        dispatch({
+            type: BEEN_CLICKED,
+            afterPressAction: false
+        });
+        Actions.pop();
+    };
+};
+
 const getUserInfo = async() => {
     let serverName = '';
     let username = '';
     let password = '';
+    let serialNumber = 0;
 
     await AsyncStorage.getItem('@MMStorage:serverName')
         .then(data => {
@@ -56,6 +68,10 @@ const getUserInfo = async() => {
         .then(data => {
             password = data;
         });
+    await AsyncStorage.getItem('@MMStorage:serialNumber')
+        .then(data => {
+            serialNumber = data;
+        });
 
     return [serverName, username, password];
 };
@@ -64,6 +80,7 @@ export const getHealthStatusBar = () => {
     let serverName;
     let username;
     let password;
+    let serial;
 
     return async (dispatch) => {
         dispatch({type: GETTING_HEALTH_STATUS});
@@ -72,6 +89,7 @@ export const getHealthStatusBar = () => {
             serverName = info[0];
             username = info[1];
             password = info[2];
+            serial = info[3];
             dispatch({type: FETCHING_USER_INFO_SUCCESS, payload: info});
         });
 
@@ -85,9 +103,11 @@ export const getHealthStatusBar = () => {
                 username: username,
                 password: password
             }
-        }).then(response => {
-            console.log('RESPONSE: ', response);
-            dispatch(getDataSuccess(response.data.result.healthStatusBar.healthData));
+        }).then(async response => {
+            if (serial !== response.data.result.healthStatusBar.serialNumber) {
+                await AsyncStorage.setItem('@MMStorage:serialNumber', response.data.result.healthStatusBar.serialNumber);
+                dispatch(getDataSuccess(response.data.result.healthStatusBar.healthData));
+            }
         }).catch((error) => {
             console.log('GET error', error);
         });

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { ScrollView, ListView, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import { CardSection, Header, BackButton } from "./common";
 import DetailListItem from './DetailListItem';
 import { DashHealth } from './DashHealth';
+import { backButtonPushed } from "../actions";
 
 class DashboardDetail extends Component {
     constructor() {
@@ -28,9 +28,7 @@ class DashboardDetail extends Component {
     }
 
     onButtonPress() {
-        this.props.afterPressAction = false;
-        console.log('and this happens', this.props.afterPressAction);
-        Actions.pop();
+        this.props.backButtonPushed();
     }
 
     renderButton() {
@@ -93,4 +91,4 @@ const mapStateToProps = ({selectedCategory}) => {
     return {subcategoryData, afterPressAction};
 };
 
-export default connect(mapStateToProps)(DashboardDetail);
+export default connect(mapStateToProps, {backButtonPushed})(DashboardDetail);
