@@ -54,7 +54,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>garamond.ttf</string>
-		<string>GreatVibes.otf</string>
 		<string>ProximaNova-Black.otf</string>
 		<string>ProximaNova-BlackIt.otf</string>
 		<string>ProximaNova-Bold.otf</string>
