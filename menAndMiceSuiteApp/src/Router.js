@@ -20,9 +20,9 @@ const RouterComponent = () => {
                     <Scene key="login" component={ LoginForm } title="Login" initial hideNavBar/>
                 </Scene>
                 <Scene key="main">
-                    <Scene key="allocate" component={Allocate} title="Allocate IP" hideNavBar/>
-                    <Scene key="troubleshoot" component={Troubleshoot} title="Troubleshoot DNS" hideNavBar/>
-                    <Scene key="settings" component={Settings} title="Settings" hideNavBar/>
+                    <Scene key="allocate" component={ Allocate } title="Allocate IP" hideNavBar/>
+                    <Scene key="troubleshoot" component={ Troubleshoot } title="Troubleshoot DNS" hideNavBar/>
+                    <Scene key="settings" component={ Settings } title="Settings" hideNavBar/>
                     <Scene key="dashboard" component={ Dashboard } title="Dashboard" initial hideNavBar/>
                     <scene key="dashDetail" component={ DashboardDetail } title="Dashboard Detail" hideNavBar/>
                 </Scene>

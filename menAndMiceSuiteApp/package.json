@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "fastlane": "^0.1.0",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-native": "^0.53.3",
     "react-native-popup-menu": "^0.12.5",
