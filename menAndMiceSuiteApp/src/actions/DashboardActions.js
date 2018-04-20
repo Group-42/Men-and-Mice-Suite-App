@@ -23,15 +23,18 @@ export const selectCategory = (categoryId) => {
 };
 
 export const selectSubcategory = (subcategoryData) => {
+
     return (dispatch) => {
         dispatch({
             type: SELECT_SUBCATEGORY,
-            payload: subcategoryData
+            payload: subcategoryData,
+            afterPressAction: true
         });
         console.log(subcategoryData);
         if(subcategoryData.status !== 'ok') {
             Actions.main({type: ActionConst.RESET});
             Actions.dashDetail();
+
         }
     };
 };

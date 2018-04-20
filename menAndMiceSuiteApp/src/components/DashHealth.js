@@ -5,15 +5,15 @@
     Used to indicate health status on the dashboard
  */
 import React from 'react';
-import {TouchableOpacity, Text, Image} from 'react-native';
+import {TouchableOpacity, Text, Image, View} from 'react-native';
 
-const DashHealth = ({children, healthStatus, onPress}) => {
+const DashHealth = ({ children, healthStatus, onPress, pressed }) => {
     const {viewStyle, textStyle, boxStyle} = styles;
 
     if(healthStatus === 'ok')
     {
         return(
-            <TouchableOpacity onPress={onPress} style={viewStyle}>
+            <View style={ viewStyle }>
                 <Image
                     source={require('../icons/Dashboard_greencheck.png')}
                     style={boxStyle}
@@ -22,12 +22,12 @@ const DashHealth = ({children, healthStatus, onPress}) => {
                 <Text style={textStyle}>
                     {children}
                 </Text>
-            </TouchableOpacity>
+            </View>
         );
     }
     else if( healthStatus === 'warning'){
         return(
-            <TouchableOpacity onPress={onPress} style={viewStyle}>
+            <TouchableOpacity onPress={ onPress } style={viewStyle} key={ pressed }>
                 <Image
                     source={require('../icons/Dashboard_yellowwarning.png')}
                     style={boxStyle}
@@ -41,7 +41,7 @@ const DashHealth = ({children, healthStatus, onPress}) => {
     }
     else{
         return(
-            <TouchableOpacity onPress={onPress} style={viewStyle}>
+            <TouchableOpacity onPress={ onPress } style={ viewStyle } key={ pressed }>
                 <Image
                     source={require('../icons/Dashboard_rederror.png')}
                     style={boxStyle}

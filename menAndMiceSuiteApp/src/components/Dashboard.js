@@ -40,6 +40,11 @@ class Dashboard extends Component{
         {
             return <Spinner size="large"/>
         }
+        if(this.props.afterPressAction)
+        {
+            console.log('and this happens too', this.props.afterPressAction);
+            return <Spinner size="large"/>
+        }
         return(
             <ListView
                 dataSource={ this.dataSource }
@@ -66,9 +71,10 @@ class Dashboard extends Component{
     }
 }
 
-const mapStateToProps = ({ healthStatus }) => {
+const mapStateToProps = ({ healthStatus, selectedCategory }) => {
     const { isFetching, data } = healthStatus;
-    return { isFetching, data };
+    const { afterPressAction } = selectedCategory;
+    return { isFetching, data, afterPressAction };
 };
 
 const styles = {

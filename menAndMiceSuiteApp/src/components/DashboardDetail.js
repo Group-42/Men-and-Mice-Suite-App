@@ -28,6 +28,8 @@ class DashboardDetail extends Component {
     }
 
     onButtonPress() {
+        this.props.afterPressAction = false;
+        console.log('and this happens', this.props.afterPressAction);
         Actions.pop();
     }
 
@@ -87,8 +89,8 @@ const styles = {
 };
 
 const mapStateToProps = ({selectedCategory}) => {
-    const{subcategoryData} = selectedCategory;
-    return {subcategoryData};
+    const{subcategoryData, afterPressAction} = selectedCategory;
+    return {subcategoryData, afterPressAction};
 };
 
 export default connect(mapStateToProps)(DashboardDetail);
