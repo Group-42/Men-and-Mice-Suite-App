@@ -17,7 +17,7 @@ const configure = () => {
     });
 };
 
-const localNotification = ({message}) =>{
+const localNotification = () =>{
     PushNotification.localNotification({
         autoCancel: true,
         largeIcon: 'micon',

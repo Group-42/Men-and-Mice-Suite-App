@@ -6,6 +6,7 @@
 import {AsyncStorage} from 'react-native';
 import {Actions, ActionConst} from 'react-native-router-flux';
 import axios from 'axios';
+import PushNotifications from '../components/PushNotifications';
 import {
     SELECT_CATEGORY,
     SELECT_SUBCATEGORY,
@@ -40,6 +41,7 @@ const getUserInfo = async() => {
     let serverName = '';
     let username = '';
     let password = '';
+    let serialNumber = 0;
 
     await AsyncStorage.getItem('@MMStorage:serverName')
         .then(data => {
@@ -53,14 +55,19 @@ const getUserInfo = async() => {
         .then(data => {
             password = data;
         });
+    await AsyncStorage.getItem('@MMStorage:serialNumber')
+        .then(data => {
+            serialNumber = data;
+        });
 
-    return [serverName, username, password];
+    return [serverName, username, password, serialNumber];
 };
 
 export const getHealthStatusBar = () => {
     let serverName;
     let username;
     let password;
+    let serial;
 
     return async (dispatch) => {
         dispatch({type: GETTING_HEALTH_STATUS});
@@ -69,6 +76,7 @@ export const getHealthStatusBar = () => {
             serverName = info[0];
             username = info[1];
             password = info[2];
+            serial = info[3];
             dispatch({type: FETCHING_USER_INFO_SUCCESS, payload: info});
         });
 
@@ -82,8 +90,11 @@ export const getHealthStatusBar = () => {
                 username: username,
                 password: password
             }
-        }).then(response => {
-            console.log('RESPONSE: ', response);
+        }).then(async response => {
+            if (serial !== response.data.result.healthStatusBar.serialNumber) {
+                await AsyncStorage.setItem('@MMStorage:serialNumber', response.data.result.healthStatusBar.serialNumber);
+                PushNotifications.localNotification();
+            }
             dispatch(getDataSuccess(response.data.result.healthStatusBar.healthData));
         }).catch((error) => {
             console.log('GET error', error);
