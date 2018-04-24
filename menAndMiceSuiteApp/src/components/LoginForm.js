@@ -6,11 +6,12 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Image, Text} from 'react-native';
+import {View, Image, Text } from 'react-native';
 import {serverNameChanged, usernameChanged, passwordChanged, loginUser} from '../actions';
 import {Card, CardSection, Input, Button, Spinner} from "./common";
 
 class LoginForm extends Component {
+
     onServerNameChange(text) {
         this.props.serverNameChanged(text);
     }
@@ -30,6 +31,7 @@ class LoginForm extends Component {
     }
 
     renderError() {
+
         if(this.props.error) {
             return (
                 <View>
@@ -59,29 +61,28 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <View style={styles.loginStyle}>
+            <View style={ styles.loginStyle} >
                 <Card>
                     <CardSection>
                         <Image
-                            source={require('../icons/logo_dark.png')}
-                            style={styles.imageStyle}
-                            resizeMode='contain'
+                            source={ require('../icons/logo_dark.png') }
+                            style={ styles.imageStyle }
                         />
                     </CardSection>
                     <CardSection>
                         <Input
                             label="Domain Name"
                             placeholder="mmsuite.company.com"
-                            onChangeText={this.onServerNameChange.bind(this)}
-                            value={this.props.serverName}
+                            onChangeText={ this.onServerNameChange.bind(this) }
+                            value={ this.props.serverName }
                         />
                     </CardSection>
                     <CardSection>
                         <Input
                             label="Username"
                             placeholder="username"
-                            onChangeText={this.onUsernameChange.bind(this)}
-                            value={this.props.username}
+                            onChangeText={ this.onUsernameChange.bind(this) }
+                            value={ this.props.username }
                         />
                     </CardSection>
                     <CardSection>
@@ -89,21 +90,22 @@ class LoginForm extends Component {
                             secureTextEntry
                             label="Password"
                             placeholder="password"
-                            onChangeText={this.onPasswordChange.bind(this)}
-                            value={this.props.password}
+                            onChangeText={ this.onPasswordChange.bind(this) }
+                            value={ this.props.password }
                         />
                     </CardSection>
 
                     <CardSection>
-                        {this.renderButton()}
+                        { this.renderButton() }
                     </CardSection>
 
-                    {this.renderError()}
+                    { this.renderError() }
                 </Card>
             </View>
         );
     }
 }
+
 
 const styles = {
     textStyle: {
@@ -129,8 +131,8 @@ const styles = {
         flex: 1
     },
     imageStyle: {
-        flexShrink: 1,
-        height: 90,
+        flex: 1,
+        height: 70,
         marginTop: 35,
         marginBottom: 45
     },
