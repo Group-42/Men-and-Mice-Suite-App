@@ -11,13 +11,14 @@ import Allocate from './components/Allocate';
 import Troubleshoot from './components/Troubleshoot';
 import Settings from './components/Settings';
 import DashboardDetail from './components/DashboardDetail';
+import UserInfo from "./components/UserInfo";
 
 const RouterComponent = () => {
     return(
         <Router>
             <Scene key="root" hideNavBar>
                 <Scene key="auth">
-                    <Scene key="login" component={ LoginForm } title="Login" initial hideNavBar/>
+                    <Scene key="login" component={ UserInfo } title="Login" initial hideNavBar/>
                 </Scene>
                 <Scene key="main">
                     <Scene key="allocate" component={Allocate} title="Allocate IP" hideNavBar/>

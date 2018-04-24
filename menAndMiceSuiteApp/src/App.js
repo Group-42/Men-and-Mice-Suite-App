@@ -5,6 +5,9 @@ import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import Router from './Router';
 import { MenuProvider } from 'react-native-popup-menu';
+import PushNotifications from './components/PushNotifications';
+
+PushNotifications.configure();
 
 class App extends Component {
     render() {

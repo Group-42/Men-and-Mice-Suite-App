@@ -9,11 +9,16 @@ import {Text} from 'react-native';
 import {connect} from 'react-redux';
 import {logoutUser} from "../actions";
 import {Button, Card, CardSection, Header} from "./common";
+import PushNotifications from './PushNotifications';
 
 class UserInfo extends Component{
     constructor(props) {
         super(props);
     }
+
+    handleOnPress(message) {
+        PushNotifications.localNotification({message});
+    };
 
     render() {
         return(
@@ -24,14 +29,19 @@ class UserInfo extends Component{
                         Username: {this.props.user[1]}
                     </Text>
                 </CardSection>
+
                 <CardSection>
                     <Text>
                         Subcategory: {this.props.subcategoryData.description}
                     </Text>
                 </CardSection>
-                <CardSection>
 
+                <CardSection>
+                    <Button onPress={this.handleOnPress.bind(this, 'TEST MESSAGE')}>
+                        Press For Notification
+                    </Button>
                 </CardSection>
+
                 <CardSection>
                     <Button onPress={this.props.logoutUser}>
                         Logout
