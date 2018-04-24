@@ -26,7 +26,7 @@ const RouterComponent = () => {
         <Router>
             <Scene key="root" hideNavBar>
                 <Scene key="auth">
-                    <Scene key="login" component={ Ping } title="Login" initial hideNavBar/>
+                    <Scene key="login" component={ LoginForm } title="Login" initial hideNavBar/>
                 </Scene>
                 <Scene key="main">
                     <Scene key="allocate" component={ Allocate } title="Allocate IP" hideNavBar/>
@@ -40,9 +40,10 @@ const RouterComponent = () => {
 
                                icon={TabIcon}
                         >
-                            <Scene key='Ping' title='Ping' component={ Ping } hideNavBar/>
+                            <Scene key='Ping' title='Ping' component={ Ping } initial hideNavBar/>
                             <Scene key='Dig' title='Dig' component={ Dig } hideNavBar/>
                         </Scene>
+
                     </Scene>
                     <Scene key="settings" component={ Settings } title="Settings" hideNavBar/>
                     <Scene key="dashboard" component={ Dashboard } title="Dashboard" initial hideNavBar/>
