@@ -4,7 +4,7 @@ import {Header, CardSection} from "./common";
 
 class Ping extends Component {
     render() {
-        const {settingsStyle} = styles;
+        const {settingsStyle, buttonStyle} = styles;
 
         return(
             <View style={ settingsStyle }>
@@ -20,7 +20,17 @@ class Ping extends Component {
 const styles = {
     settingsStyle: {
         backgroundColor: '#29495B'
-    }
+    },
+    buttonStyle: {
+        flex: 1,
+        alignSelf: 'stretch',
+        borderRadius: 5,
+        borderWidth: 3,
+        borderColor: '#f7b52b',
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 50
+    },
 };
 
 export default Ping;

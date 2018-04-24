@@ -13,6 +13,7 @@ import Settings from './components/Settings';
 import DashboardDetail from './components/DashboardDetail';
 import Ping from './components/Ping';
 import Dig from './components/Dig';
+import {Text} from "react-native";
 
 
 const TabIcon = ({ selected, title }) => {
@@ -31,20 +32,21 @@ const RouterComponent = () => {
                 <Scene key="main">
                     <Scene key="allocate" component={ Allocate } title="Allocate IP" hideNavBar/>
 
-                    <Scene
-                        key="tabbar"
-                        tabs={true}
-                        tabBarStyle={{ backgroundColor: '#F00' }}
-                    >
-                        <Scene key="Troubleshoot" title='Troubleshoot'
-
-                               icon={TabIcon}
+                    <Scene key="troubleshoot">
+                        <Scene
+                            key="tabbar"
+                            tabs={true}
+                            tabBarStyle={{ backgroundColor: '#FFFFFF' }}
                         >
-                            <Scene key='Ping' title='Ping' component={ Ping } initial hideNavBar/>
-                            <Scene key='Dig' title='Dig' component={ Dig } hideNavBar/>
+                            <Scene key="pingTab" title='Ping' icon={TabIcon}>
+                                <Scene key='ping' title='Ping' component={ Ping } hideNavBar/>
+                            </Scene>
+                            <Scene key="digTab" title='Dig' icon={TabIcon}>
+                                <Scene key='dig' title='Dig' component={ Dig } hideNavBar/>
+                            </Scene>
                         </Scene>
-
                     </Scene>
+
                     <Scene key="settings" component={ Settings } title="Settings" hideNavBar/>
                     <Scene key="dashboard" component={ Dashboard } title="Dashboard" initial hideNavBar/>
                     <scene key="dashDetail" component={ DashboardDetail } title="Dashboard Detail" hideNavBar/>
