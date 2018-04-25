@@ -11,6 +11,7 @@ export const PASSWORD_CHANGED = 'password_changed';
 export const USER_LOGIN_SUCCESS = 'user_login_success';
 export const USER_LOGIN_FAIL = 'user_login_fail';
 export const USER_LOGOUT = 'user_logout';
+export const SPINNER_START = 'spinner_start';
 
 //### DASHBOARD
 export const SELECT_CATEGORY = 'selected_category';
@@ -24,5 +25,9 @@ export const GET_HEALTH_STATUS_SUCCESS = 'get_appliance_health_success';
 export const GETTING_HEALTH_STATUS = 'getting_appliance_health';
 export const GETTING_HEALTH_STATUS_FAIL = 'get_appliance_health_fail';
 
-//### OTHER
-export const SPINNER_START = 'spinner_start';
+//### ALLOCATE IP
+export const IP_RANGE_CHANGED = 'ip_range_changed';
+export const FETCHING_NEXT_IP = 'fetching_next_ip';
+export const FETCHING_NEXT_IP_SUCCESS = 'fetching_next_ip_success';
+
+

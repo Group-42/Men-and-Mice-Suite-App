@@ -1,11 +1,50 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import {connect} from 'react-redux';
 import ModalDropdown from 'react-native-modal-dropdown';
-import { Header, Card, CardSection, Button, Input } from "./common";
+import {Header, Card, CardSection, Button, Input, Spinner} from "./common";
+import {ipRangeChanged, nextFreeAddress} from '../actions';
 
 class Allocate extends Component {
+    onIpRangeChanged(text) {
+        this.props.ipRangeChanged(text);
+    }
+
+    renderFetchButton() {
+        if(this.props.fetching)
+        {
+            return <Spinner/>
+        }
+        return (
+            <Button
+                onPress={this.onFetchButtonPress.bind(this)}
+                buttonStyle={styles.buttonFetchStyle}
+                textStyle={styles.textStyle}
+            >
+                Fetch Next IP
+            </Button>
+        )
+    }
+
+    renderNextIpAddress() {
+        if(this.props.nextIP === '') {
+            return (
+                <Text style={styles.textStyle}> Placeholder </Text>
+            )
+        }
+        return (
+            <Text style={styles.textStyle}> { this.props.nextIP } </Text>
+        )
+    }
+
+    onFetchButtonPress() {
+        const {ipRange} = this.props;
+
+        this.props.nextFreeAddress(ipRange);
+    }
+
     render() {
-        const { allocateStyle, borderStyle, buttonFetchStyle, buttonApplyStyle, dropdownButtonTextStyle,
+        const { allocateStyle, borderStyle, buttonApplyStyle, dropdownButtonTextStyle,
             textDescriptionStyle, buttonLocationStyle, dropdownButtonStyle, textStyle } = styles;
 
         return(
@@ -16,18 +55,13 @@ class Allocate extends Component {
                         <Input
                             label="IP Range:"
                             placeholder="127.0.0.1"
-
+                            onChangeText={this.onIpRangeChanged.bind(this)}
+                            value={this.props.ipRange}
                         />
                     </CardSection>
                     <CardSection>
                         <View style={ buttonLocationStyle }>
-                            <Button
-                                onPress={() => alert('it happened')}
-                                buttonStyle={ buttonFetchStyle }
-                                textStyle={ textStyle }
-                                >
-                                Fetch Next IP
-                            </Button>
+                            {this.renderFetchButton()}
                         </View>
                     </CardSection>
                 </Card>
@@ -35,7 +69,7 @@ class Allocate extends Component {
                 <Card>
                     <CardSection>
                         <Text style={ textDescriptionStyle }> Next IP in range: </Text>
-                        <Text style={ textStyle }> Placeholder </Text>
+                        {this.renderNextIpAddress()}
                     </CardSection>
                     <CardSection>
                         <Input
@@ -139,4 +173,9 @@ const styles = {
     }
 };
 
-export default Allocate;
+const mapStateToProps = ({allocateIP}) => {
+    const {ipRange, fetching, nextIP} = allocateIP;
+    return {ipRange, fetching, nextIP};
+};
+
+export default connect(mapStateToProps, {ipRangeChanged, nextFreeAddress})(Allocate);
