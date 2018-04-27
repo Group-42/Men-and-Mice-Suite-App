@@ -1,10 +1,54 @@
 import React, {Component} from 'react'
 import {View, Text} from 'react-native'
-import {Header, CardSection, Input, Button} from "./common";
+import {connect} from 'react-redux';
+import {Header, CardSection, Input, Button, Spinner} from "./common";
+import {pingDomainChanged, performPing} from '../actions/PingActions';
 
 class Ping extends Component {
+
+    onPingDomainChange(text) {
+        this.props.pingDomainChanged(text);
+    }
+
+    renderButton(){
+        const {buttonStyle, buttonLocationStyle, textStyle} = styles;
+
+        if(this.props.pinging) {
+            return(
+                <Spinner/>
+            );
+        }
+        return(
+            <View style={buttonLocationStyle}>
+                <Button
+                    buttonStyle={buttonStyle}
+                    textStyle={textStyle}
+                    onPress={() => this.props.performPing(this.props.pingDomain)}
+                >
+                    Perform Ping
+                </Button>
+            </View>
+        );
+    }
+
+    renderResponse() {
+        const {textDescriptionStyle, errorTextStyle} = styles;
+        if(this.props.pingError) {
+            return(
+                <Text style={errorTextStyle}>{this.props.pingError}</Text>
+            );
+        }else if(this.props.pingResult) {
+            return (
+                <View>
+                    <Text style={textDescriptionStyle}>Alive: {this.props.pingResult.alive}</Text>
+                    <Text style={textDescriptionStyle}>Ping Time: {this.props.pingResult.pingTime}</Text>
+                </View>
+            );
+        }
+    }
+
     render() {
-        const {pingStyle, buttonStyle, buttonLocationStyle, textStyle} = styles;
+        const {pingStyle} = styles;
 
         return(
             <View style={ pingStyle }>
@@ -13,18 +57,16 @@ class Ping extends Component {
                     <Input
                         label="Domain Name"
                         placeholder="example.com"
+                        keyboardType="numeric"
+                        onChangeText={this.onPingDomainChange.bind(this)}
+                        value={this.props.pingDomain}
                     />
                 </CardSection>
                 <CardSection>
-                    <View style={buttonLocationStyle}>
-                        <Button
-                            onPress={() => {alert("TODO make button do something")}}
-                            buttonStyle={buttonStyle}
-                            textStyle={textStyle}
-                        >
-                            Perform Ping
-                        </Button>
-                    </View>
+                    {this.renderButton()}
+                </CardSection>
+                <CardSection>
+                    {this.renderResponse()}
                 </CardSection>
             </View>
         );
@@ -61,7 +103,18 @@ const styles = {
         color: '#f5f5f5',
         paddingLeft: 12,
         paddingRight: 2,
+    },
+    errorTextStyle: {
+        fontFamily: 'ProximaNova-Light',
+        fontSize: 20,
+        alignSelf: 'center',
+        color: '#dc143c',
     }
 };
 
-export default Ping;
+const mapStateToProps = ({ping}) => {
+    const {pingDomain, pingResult, pingError, pinging} = ping;
+    return {pingDomain, pingResult, pingError, pinging};
+};
+
+export default connect(mapStateToProps, {pingDomainChanged, performPing})(Ping);
