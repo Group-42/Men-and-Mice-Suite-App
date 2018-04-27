@@ -8,11 +8,13 @@ import AuthReducer from './AuthReducer';
 import SelectionReducer from './SelectionReducer';
 import CategoryReducer from './CategoryReducer'
 import HealthStatusReducer from "./HealthStatusReducer";
+import AllocateReducer from "./AllocateReducer";
 
 export default combineReducers({
     auth: AuthReducer,
     libraries: CategoryReducer,
     test: CategoryReducer,
     selectedCategory: SelectionReducer,
-    healthStatus: HealthStatusReducer
+    healthStatus: HealthStatusReducer,
+    allocateIP: AllocateReducer
 });

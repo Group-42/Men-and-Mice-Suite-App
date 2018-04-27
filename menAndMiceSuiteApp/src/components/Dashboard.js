@@ -36,7 +36,7 @@ class Dashboard extends Component{
     }
 
     renderDash() {
-        if(this.props.isFetching)
+        if(this.props.isFetching || this.props.afterPressAction)
         {
             return <Spinner size="large"/>
         }
@@ -66,9 +66,10 @@ class Dashboard extends Component{
     }
 }
 
-const mapStateToProps = ({ healthStatus }) => {
+const mapStateToProps = ({ healthStatus, selectedCategory }) => {
     const { isFetching, data } = healthStatus;
-    return { isFetching, data };
+    const { afterPressAction } = selectedCategory;
+    return { isFetching, data, afterPressAction };
 };
 
 const styles = {
