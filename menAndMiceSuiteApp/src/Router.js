@@ -37,6 +37,7 @@ const RouterComponent = () => {
                             key="tabbar"
                             tabs={true}
                             tabBarStyle={{ backgroundColor: '#FFFFFF' }}
+                            tabBarPosition="bottom"
                         >
                             <Scene key="pingTab" title='Ping' icon={TabIcon}>
                                 <Scene key='ping' title='Ping' component={ Ping } hideNavBar/>
