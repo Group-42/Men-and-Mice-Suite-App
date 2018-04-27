@@ -63,12 +63,13 @@ class LoginForm extends Component {
         return (
             <View style={ styles.loginStyle} >
                 <Card>
-                    <CardSection>
+                    <View style={ styles.imageViewStyle }>
                         <Image
                             source={ require('../icons/logo_dark.png') }
                             style={ styles.imageStyle }
+
                         />
-                    </CardSection>
+                    </View>
                     <CardSection>
                         <Input
                             label="Domain Name"
@@ -106,7 +107,6 @@ class LoginForm extends Component {
     }
 }
 
-
 const styles = {
     textStyle: {
         alignSelf: 'center',
@@ -130,10 +130,13 @@ const styles = {
         backgroundColor: '#29495B',
         flex: 1
     },
+    imageViewStyle: {
+        alignItems: 'center',
+    },
     imageStyle: {
-        flex: 1,
-        height: 70,
-        marginTop: 35,
+        height: 73,
+        width: 336,
+        marginTop: 55,
         marginBottom: 45
     },
     errorTextStyle: {
