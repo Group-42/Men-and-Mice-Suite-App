@@ -6,6 +6,12 @@ import {Header, Card, CardSection, Button, Input, Spinner} from "./common";
 import {ipRangeChanged, domainNameChanged, ttlChanged, recordTypeChanged, nextFreeAddress, createDNSRecord} from '../actions';
 
 class Allocate extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            dnsRecordType: ''
+        }
+    }
     onIpRangeChanged(text) {
         this.props.ipRangeChanged(text);
     }
@@ -18,8 +24,14 @@ class Allocate extends Component {
         this.props.ttlChanged(text);
     }
 
+    // converts array number to corresponding DNS record type
     onRecordTypeChanged(text) {
         let type = '';
+
+        this.setState({
+            dnsRecordType: text
+        });
+
         switch(text){
             case '0':
                 type = 'A';
@@ -127,8 +139,63 @@ class Allocate extends Component {
         }
     }
 
+    // renders the correct input form based on the selected DNS record type
+    renderDnsFormFromType(type){
+        const { textDescriptionStyle, buttonLocationStyle } = styles;
+        switch(type){
+            case '0':
+                return(
+                    <View>
+                        <CardSection>
+                            <Input
+                                label="Domain Name:"
+                                placeholder="mmsuite.company.com"
+                                onChangeText={this.onDomainNameChanged.bind(this)}
+                                value={this.props.domain}
+                            />
+                        </CardSection>
+                        <CardSection>
+                            <Input
+                                label="TTL:"
+                                placeholder="604800s = 1 week"
+                                onChangeText={this.onTTLChanged.bind(this)}
+                                value={this.props.ttl}
+                            />
+                        </CardSection>
+                        <CardSection>
+                            <View style={ buttonLocationStyle }>
+                                {this.renderApplyButton(this.state.dnsRecordType)}
+                            </View>
+                        </CardSection>
+                    </View>
+                );
+            case '1':
+                return(
+                    <Text style={ textDescriptionStyle }>NS Records Coming Soon</Text>
+                );
+            case '2':
+                return(
+                    <Text style={ textDescriptionStyle }>CNAME Records Coming Soon</Text>
+                );
+            case '3':
+                return(
+                    <Text style={ textDescriptionStyle }>SOA Records Coming Soon</Text>
+                );
+            case '4':
+                return(
+                    <Text style={ textDescriptionStyle }>PTR Records Coming Soon</Text>
+                );
+            case '5':
+                return(
+                    <Text style={ textDescriptionStyle }>MX Records Coming Soon</Text>
+                );
+            default:
+        }
+    }
+
+    // renders the basic DNS form when the next free IP address is found
     renderDnsRecordForm() {
-        const {dropdownButtonTextStyle, textDescriptionStyle,dropdownButtonStyle, buttonLocationStyle} = styles;
+        const {dropdownButtonTextStyle, textDescriptionStyle,dropdownButtonStyle} = styles;
         if(this.props.nextIP) {
             return (
                 <Card>
@@ -148,27 +215,7 @@ class Allocate extends Component {
                             onSelect={this.onRecordTypeChanged.bind(this)}
                         />
                     </CardSection>
-                    <CardSection>
-                        <Input
-                            label="Domain Name:"
-                            placeholder="mmsuite.company.com"
-                            onChangeText={this.onDomainNameChanged.bind(this)}
-                            value={this.props.domain}
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <Input
-                            label="TTL:"
-                            placeholder="604800s = 1 week"
-                            onChangeText={this.onTTLChanged.bind(this)}
-                            value={this.props.ttl}
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <View style={ buttonLocationStyle }>
-                            {this.renderApplyButton()}
-                        </View>
-                    </CardSection>
+                    {this.renderDnsFormFromType(this.state.dnsRecordType)}
                     {this.renderPostError()}
                 </Card>
             )

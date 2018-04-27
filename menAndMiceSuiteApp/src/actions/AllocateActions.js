@@ -1,3 +1,8 @@
+/*
+    AllocateActions.js
+
+    Contains all functions that is needed to allocate IP address and create DNS records
+ */
 import { AsyncStorage } from "react-native";
 import axios from 'axios';
 import {
@@ -113,20 +118,6 @@ export const createDNSRecord = ({domain, ttl, recordType, nextIP}) => {
     let serverName = '';
     let username = '';
     let password = '';
-
-    console.log('### CREATE DNS RECORD ###');
-    console.log('Domain:', domain);
-    console.log('TTL:', ttl);
-    console.log('Type:', recordType);
-    console.log('IP Address:', nextIP);
-
-    /*const formData = new FormData();
-    formData.append('name', null);
-    formData.append('type', recordType);
-    formData.append('ttl', ttl);
-    formData.append('data', nextIP);
-
-    console.log('formdata:', formData);*/
 
     return async (dispatch) => {
         dispatch({type: POSTING_DNS_RECORD});
