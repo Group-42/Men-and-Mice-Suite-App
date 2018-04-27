@@ -160,6 +160,7 @@ class Allocate extends Component {
                                 placeholder="604800s = 1 week"
                                 onChangeText={this.onTTLChanged.bind(this)}
                                 value={this.props.ttl}
+                                keyboardType="numeric"
                             />
                         </CardSection>
                         <CardSection>
@@ -235,6 +236,7 @@ class Allocate extends Component {
                             placeholder="127.0.0.1"
                             onChangeText={this.onIpRangeChanged.bind(this)}
                             value={this.props.ipRange}
+                            keyboardType="numeric"
                         />
                     </CardSection>
                     <CardSection>
