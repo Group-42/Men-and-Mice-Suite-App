@@ -27,7 +27,12 @@ export const GETTING_HEALTH_STATUS_FAIL = 'get_appliance_health_fail';
 
 //### ALLOCATE IP
 export const IP_RANGE_CHANGED = 'ip_range_changed';
+export const RECORD_TYPE_CHANGED = 'record_type_changed';
+export const DOMAIN_NAME_CHANGED = 'domain_name_changed';
+export const TTL_CHANGED = 'ttl_changed';
 export const FETCHING_NEXT_IP = 'fetching_next_ip';
 export const FETCHING_NEXT_IP_SUCCESS = 'fetching_next_ip_success';
-
-
+export const FETCHING_NEXT_IP_FAIL = 'fetching_next_ip_fail';
+export const POSTING_DNS_RECORD = 'posting_dns_record';
+export const POSTING_DNS_RECORD_SUCCESS = 'posting_dns_record_success';
+export const POSTING_DNS_RECORD_FAIL = 'posting_dns_record_fail';

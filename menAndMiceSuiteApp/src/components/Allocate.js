@@ -1,13 +1,48 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Keyboard } from 'react-native';
 import {connect} from 'react-redux';
 import ModalDropdown from 'react-native-modal-dropdown';
 import {Header, Card, CardSection, Button, Input, Spinner} from "./common";
-import {ipRangeChanged, nextFreeAddress} from '../actions';
+import {ipRangeChanged, domainNameChanged, ttlChanged, recordTypeChanged, nextFreeAddress, createDNSRecord} from '../actions';
 
 class Allocate extends Component {
     onIpRangeChanged(text) {
         this.props.ipRangeChanged(text);
+    }
+
+    onDomainNameChanged(text) {
+        this.props.domainNameChanged(text);
+    }
+
+    onTTLChanged(text) {
+        this.props.ttlChanged(text);
+    }
+
+    onRecordTypeChanged(text) {
+        let type = '';
+        switch(text){
+            case '0':
+                type = 'A';
+                break;
+            case '1':
+                type = 'NS';
+                break;
+            case '2':
+                type = 'CNAME';
+                break;
+            case '3':
+                type = 'SOA';
+                break;
+            case '4':
+                type = 'PTR';
+                break;
+            case '5':
+                type = 'MX';
+                break;
+            default:
+                type = text;
+        }
+        this.props.recordTypeChanged(type);
     }
 
     renderFetchButton() {
@@ -26,26 +61,122 @@ class Allocate extends Component {
         )
     }
 
+    onFetchButtonPress() {
+        const {ipRange} = this.props;
+
+        Keyboard.dismiss();
+        this.props.nextFreeAddress(ipRange);
+    }
+
+    renderApplyButton() {
+        if(this.props.isPosting)
+        {
+            return <Spinner/>
+        }
+
+        return(
+            <Button
+                onPress={this.onApplyButtonPress.bind(this)}
+                buttonStyle={ styles.buttonApplyStyle }
+                textStyle={ styles.textStyle }
+            >
+                Apply
+            </Button>
+        );
+    }
+
+    onApplyButtonPress() {
+        const {domain, ttl, recordType, nextIP} = this.props;
+
+        this.props.createDNSRecord({domain, ttl, recordType, nextIP});
+    }
+
     renderNextIpAddress() {
         if(this.props.nextIP === '') {
             return (
                 <Text style={styles.textStyle}> Placeholder </Text>
             )
         }
+
         return (
             <Text style={styles.textStyle}> { this.props.nextIP } </Text>
         )
     }
 
-    onFetchButtonPress() {
-        const {ipRange} = this.props;
+    renderFetchError() {
+        if(this.props.fetchError) {
+            return (
+                <View>
+                    <Text style={styles.errorTextStyle}>
+                        {this.props.fetchError}
+                    </Text>
+                </View>
+            )
+        }
+    }
 
-        this.props.nextFreeAddress(ipRange);
+    renderPostError() {
+        if(this.props.postError) {
+            return (
+                <View>
+                    <Text style={styles.errorTextStyle}>
+                        {this.props.postError}
+                    </Text>
+                </View>
+            )
+        }
+    }
+
+    renderDnsRecordForm() {
+        const {dropdownButtonTextStyle, textDescriptionStyle,dropdownButtonStyle, buttonLocationStyle} = styles;
+        if(this.props.nextIP) {
+            return (
+                <Card>
+                    <CardSection>
+                        <Text style={ textDescriptionStyle }> Next IP in range: </Text>
+                        {this.renderNextIpAddress()}
+                    </CardSection>
+                    <CardSection>
+                        <Text style={ textDescriptionStyle }> Record type: </Text>
+                        <ModalDropdown
+                            options={['A', 'NS', 'CNAME', 'SOA', 'PTR', 'MX']}
+                            style={ dropdownButtonStyle }
+                            textStyle={ dropdownButtonTextStyle }
+                            defaultValue={"Please select"}
+                            dropdownStyle={{ backgroundColor: '#29495B', flex: 1 }}
+                            dropdownTextStyle={ dropdownButtonTextStyle }
+                            onSelect={this.onRecordTypeChanged.bind(this)}
+                        />
+                    </CardSection>
+                    <CardSection>
+                        <Input
+                            label="Domain Name:"
+                            placeholder="mmsuite.company.com"
+                            onChangeText={this.onDomainNameChanged.bind(this)}
+                            value={this.props.domain}
+                        />
+                    </CardSection>
+                    <CardSection>
+                        <Input
+                            label="TTL:"
+                            placeholder="604800s = 1 week"
+                            onChangeText={this.onTTLChanged.bind(this)}
+                            value={this.props.ttl}
+                        />
+                    </CardSection>
+                    <CardSection>
+                        <View style={ buttonLocationStyle }>
+                            {this.renderApplyButton()}
+                        </View>
+                    </CardSection>
+                    {this.renderPostError()}
+                </Card>
+            )
+        }
     }
 
     render() {
-        const { allocateStyle, borderStyle, buttonApplyStyle, dropdownButtonTextStyle,
-            textDescriptionStyle, buttonLocationStyle, dropdownButtonStyle, textStyle } = styles;
+        const { allocateStyle, borderStyle, buttonLocationStyle } = styles;
 
         return(
             <View style={ allocateStyle }>
@@ -60,54 +191,14 @@ class Allocate extends Component {
                         />
                     </CardSection>
                     <CardSection>
+                        {this.renderFetchError()}
                         <View style={ buttonLocationStyle }>
                             {this.renderFetchButton()}
                         </View>
                     </CardSection>
                 </Card>
-                <View style={ borderStyle }/>
-                <Card>
-                    <CardSection>
-                        <Text style={ textDescriptionStyle }> Next IP in range: </Text>
-                        {this.renderNextIpAddress()}
-                    </CardSection>
-                    <CardSection>
-                        <Input
-                            label="Domain Name:"
-                            placeholder="mmsuite.company.com"
-
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <Input
-                            label="TTL:"
-                            placeholder="604800s = 1 week"
-
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <Text style={ textDescriptionStyle }> Type: </Text>
-                        <ModalDropdown
-                            options={['option 1', 'option 2', 'option 3', 'option 4', 'option 5', 'option 6']}
-                            style={ dropdownButtonStyle }
-                            textStyle={ dropdownButtonTextStyle }
-                            defaultValue={"Please select"}
-                            dropdownStyle={{ backgroundColor: '#29495B', flex: 1 }}
-                            dropdownTextStyle={ dropdownButtonTextStyle }
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <View style={ buttonLocationStyle }>
-                            <Button
-                                onPress={() => alert('it happened')}
-                                buttonStyle={ buttonApplyStyle }
-                                textStyle={ textStyle }
-                            >
-                                Apply
-                            </Button>
-                        </View>
-                    </CardSection>
-                </Card>
+                <View style={ borderStyle } />
+                {this.renderDnsRecordForm()}
             </View>
         );
     }
@@ -147,7 +238,8 @@ const styles = {
         fontSize: 16,
         padding: 10,
         borderWidth: 1,
-        borderColor: '#f7b52b'
+        borderColor: '#f7b52b',
+        minWidth: 100
     },
     buttonLocationStyle: {
         flex: 1,
@@ -170,12 +262,25 @@ const styles = {
         borderRadius: 5,
         borderWidth: 3,
         borderColor: '#f7b52b'
+    },
+    errorTextStyle: {
+        fontFamily: 'ProximaNova-Light',
+        fontSize: 20,
+        alignSelf: 'center',
+        color: '#dc143c',
     }
 };
 
 const mapStateToProps = ({allocateIP}) => {
-    const {ipRange, fetching, nextIP} = allocateIP;
-    return {ipRange, fetching, nextIP};
+    const {ipRange, domain, ttl, recordType, fetching, isPosting, nextIP, fetchError, postError} = allocateIP;
+    return {ipRange, domain, ttl, recordType, fetching, isPosting, nextIP, fetchError, postError};
 };
 
-export default connect(mapStateToProps, {ipRangeChanged, nextFreeAddress})(Allocate);
+export default connect(mapStateToProps, {
+    ipRangeChanged,
+    domainNameChanged,
+    ttlChanged,
+    recordTypeChanged,
+    nextFreeAddress,
+    createDNSRecord
+})(Allocate);
