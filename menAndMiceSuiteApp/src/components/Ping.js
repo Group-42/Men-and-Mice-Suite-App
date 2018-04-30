@@ -40,7 +40,7 @@ class Ping extends Component {
         }else if(this.props.pingResult) {
             return (
                 <View>
-                    <Text style={textDescriptionStyle}>Alive: {this.props.pingResult.alive}</Text>
+                    <Text style={textDescriptionStyle}>Alive: {this.props.pingResult.alive.toString()}</Text>
                     <Text style={textDescriptionStyle}>Ping Time: {this.props.pingResult.pingTime}</Text>
                 </View>
             );
