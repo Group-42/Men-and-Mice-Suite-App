@@ -9,6 +9,7 @@ import SelectionReducer from './SelectionReducer';
 import CategoryReducer from './CategoryReducer'
 import HealthStatusReducer from "./HealthStatusReducer";
 import PingReducer from "./PingReducer";
+import AllocateReducer from "./AllocateReducer";
 
 export default combineReducers({
     auth: AuthReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     test: CategoryReducer,
     selectedCategory: SelectionReducer,
     healthStatus: HealthStatusReducer,
-    ping: PingReducer
+    ping: PingReducer,
+    allocateIP: AllocateReducer,
 });

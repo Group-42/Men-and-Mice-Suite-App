@@ -6,7 +6,7 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Image, Text } from 'react-native';
+import {View, Image, Text, Keyboard} from 'react-native';
 import {serverNameChanged, usernameChanged, passwordChanged, loginUser} from '../actions';
 import {Card, CardSection, Input, Button, Spinner} from "./common";
 
@@ -27,6 +27,7 @@ class LoginForm extends Component {
     onButtonPress() {
         const {serverName, username, password} = this.props;
 
+        Keyboard.dismiss();
         this.props.loginUser({serverName, username, password});
     }
 
