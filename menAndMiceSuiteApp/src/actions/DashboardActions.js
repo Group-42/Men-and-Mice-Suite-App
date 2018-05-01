@@ -50,7 +50,7 @@ export const backButtonPushed = () => {
     };
 };
 
-const getUserInfo = async() => {
+export const getUserInfo = async() => {
     let serverName = '';
     let username = '';
     let password = '';

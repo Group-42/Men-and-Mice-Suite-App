@@ -11,6 +11,7 @@ import {serverNameChanged, usernameChanged, passwordChanged, loginUser} from '..
 import {Card, CardSection, Input, Button, Spinner} from "./common";
 
 class LoginForm extends Component {
+
     onServerNameChange(text) {
         this.props.serverNameChanged(text);
     }
@@ -31,6 +32,7 @@ class LoginForm extends Component {
     }
 
     renderError() {
+
         if(this.props.error) {
             return (
                 <View>
@@ -60,29 +62,29 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <View style={styles.loginStyle}>
+            <View style={ styles.loginStyle} >
                 <Card>
-                    <CardSection>
+                    <View style={ styles.imageViewStyle }>
                         <Image
-                            source={require('../icons/logo_dark.png')}
-                            style={styles.imageStyle}
-                            resizeMode='contain'
+                            source={ require('../icons/logo_dark.png') }
+                            style={ styles.imageStyle }
+
                         />
-                    </CardSection>
+                    </View>
                     <CardSection>
                         <Input
                             label="Domain Name"
                             placeholder="mmsuite.company.com"
-                            onChangeText={this.onServerNameChange.bind(this)}
-                            value={this.props.serverName}
+                            onChangeText={ this.onServerNameChange.bind(this) }
+                            value={ this.props.serverName }
                         />
                     </CardSection>
                     <CardSection>
                         <Input
                             label="Username"
                             placeholder="username"
-                            onChangeText={this.onUsernameChange.bind(this)}
-                            value={this.props.username}
+                            onChangeText={ this.onUsernameChange.bind(this) }
+                            value={ this.props.username }
                         />
                     </CardSection>
                     <CardSection>
@@ -90,16 +92,16 @@ class LoginForm extends Component {
                             secureTextEntry
                             label="Password"
                             placeholder="password"
-                            onChangeText={this.onPasswordChange.bind(this)}
-                            value={this.props.password}
+                            onChangeText={ this.onPasswordChange.bind(this) }
+                            value={ this.props.password }
                         />
                     </CardSection>
 
                     <CardSection>
-                        {this.renderButton()}
+                        { this.renderButton() }
                     </CardSection>
 
-                    {this.renderError()}
+                    { this.renderError() }
                 </Card>
             </View>
         );
@@ -129,10 +131,13 @@ const styles = {
         backgroundColor: '#29495B',
         flex: 1
     },
+    imageViewStyle: {
+        alignItems: 'center',
+    },
     imageStyle: {
-        flexShrink: 1,
-        height: 90,
-        marginTop: 35,
+        height: 73,
+        width: 336,
+        marginTop: 55,
         marginBottom: 45
     },
     errorTextStyle: {

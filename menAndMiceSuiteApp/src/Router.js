@@ -11,6 +11,17 @@ import Allocate from './components/Allocate';
 import Troubleshoot from './components/Troubleshoot';
 import Settings from './components/Settings';
 import DashboardDetail from './components/DashboardDetail';
+import Ping from './components/Ping';
+import Dig from './components/Dig';
+import {Text} from "react-native";
+
+
+const TabIcon = ({ focused , title}) => {
+    console.log('a;lkdsjf;lksa',focused);
+    return (
+        <Text style={{color: focused ? 'red' : 'black'}}>{title}</Text>
+    )
+};
 
 const RouterComponent = () => {
     return(
@@ -21,7 +32,21 @@ const RouterComponent = () => {
                 </Scene>
                 <Scene key="main">
                     <Scene key="allocate" component={ Allocate } title="Allocate IP" hideNavBar/>
-                    <Scene key="troubleshoot" component={ Troubleshoot } title="Troubleshoot DNS" hideNavBar/>
+
+                    <Scene key="troubleshoot">
+                        <Scene
+                            key="tabbar"
+                            tabs={true}
+                            tabBarStyle={{ backgroundColor: '#FFFFFF' }}
+                            tabBarPosition="bottom"
+                            showLabel={false}
+                            activeTintColor={'red'}
+                        >
+                            <Scene key='ping' title='Ping' component={ Ping } icon={TabIcon} hideNavBar/>
+                            <Scene key='dig' title='Dig' component={ Dig } icon={TabIcon} hideNavBar/>
+                        </Scene>
+                    </Scene>
+
                     <Scene key="settings" component={ Settings } title="Settings" hideNavBar/>
                     <Scene key="dashboard" component={ Dashboard } title="Dashboard" initial hideNavBar/>
                     <scene key="dashDetail" component={ DashboardDetail } title="Dashboard Detail" hideNavBar/>
