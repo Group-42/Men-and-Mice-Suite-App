@@ -4,7 +4,7 @@
     Dashboard overview of the health of all the different systems, displayed in expandable/collapsible listview
  */
 import React, { Component } from 'react';
-import { View, ListView } from 'react-native';
+import {View, ListView, Text} from 'react-native';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
 import { Header, Spinner } from "./common";
@@ -36,17 +36,25 @@ class Dashboard extends Component{
     }
 
     renderDash() {
-        if(this.props.isFetching || this.props.afterPressAction)
-        {
+        if(this.props.isFetching || this.props.afterPressAction) {
             return <Spinner size="large"/>
         }
-        return(
-            <ListView
-                dataSource={ this.dataSource }
-                renderRow={ this.renderRow }
-                enableEmptySections={ true }
-            />
-        );
+        else if (this.props.error) {
+            return(
+                <View style={styles.errorViewStyle}>
+                    <Text style={styles.errorTextStyle}>{this.props.error}</Text>
+                </View>
+            );
+        }
+        else {
+            return (
+                <ListView
+                    dataSource={this.dataSource}
+                    renderRow={this.renderRow}
+                    enableEmptySections={true}
+                />
+            );
+        }
     }
 
     renderRow( library ) {
@@ -67,15 +75,25 @@ class Dashboard extends Component{
 }
 
 const mapStateToProps = ({ healthStatus, selectedCategory }) => {
-    const { isFetching, data } = healthStatus;
+    const { isFetching, data, error } = healthStatus;
     const { afterPressAction } = selectedCategory;
-    return { isFetching, data, afterPressAction };
+    return { isFetching, data, error, afterPressAction };
 };
 
 const styles = {
     dashboardStyle: {
         backgroundColor: '#29495B',
         flex: 1
+    },
+    errorViewStyle:{
+        justifyContent: 'center',
+        flex: 1,
+    },
+    errorTextStyle: {
+        fontFamily: 'ProximaNova-Light',
+        fontSize: 20,
+        alignSelf: 'center',
+        color: '#dc143c',
     }
 };
 export default connect( mapStateToProps,{ getHealthStatusBar })( Dashboard );

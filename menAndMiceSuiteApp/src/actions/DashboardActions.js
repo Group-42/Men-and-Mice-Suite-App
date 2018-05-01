@@ -104,12 +104,11 @@ export const getHealthStatusBar = () => {
                 password: password
             }
         }).then(async response => {
-            if (serial !== response.data.result.healthStatusBar.serialNumber) {
-                await AsyncStorage.setItem('@MMStorage:serialNumber', response.data.result.healthStatusBar.serialNumber);
-                dispatch(getDataSuccess(response.data.result.healthStatusBar.healthData));
-            }
+            await AsyncStorage.setItem('@MMStorage:serialNumber', response.data.result.healthStatusBar.serialNumber);
+            dispatch(getDataSuccess(response.data.result.healthStatusBar.healthData));
         }).catch((error) => {
             console.log('GET error', error);
+            dispatch(getDataFail());
         });
     };
 };

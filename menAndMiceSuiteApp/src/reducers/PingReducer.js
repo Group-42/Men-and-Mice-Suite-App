@@ -18,7 +18,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-    console.log(action);
     switch(action.type){
         case PING_DOMAIN_CHANGED:
             return {...state, pingDomain: action.payload};

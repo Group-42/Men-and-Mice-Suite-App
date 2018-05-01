@@ -10,6 +10,7 @@ const INITIAL_STATE = {
     data: [],
     user: [],
     isFetching: false,
+    error: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -21,7 +22,7 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, data: action.payload, isFetching: false};
 
         case GETTING_HEALTH_STATUS_FAIL:
-            return {...state, isFetching: false, error: true};
+            return {...state, isFetching: false, error: 'An error occurred'};
 
         case FETCHING_USER_INFO:
             return {...state, loading: true, user: []};
