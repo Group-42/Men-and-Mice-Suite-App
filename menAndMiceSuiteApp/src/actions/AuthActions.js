@@ -40,7 +40,7 @@ export const passwordChanged = (text) => {
 
 export const loginUser = ({serverName, username, password}) => {
     if(serverName.trim()  === '' && username.trim() === '' && password.trim() === '') {
-        serverName = 'ca.dev.lab';
+        serverName = 'blackstar.thorlacius.com';
         username = 'administrator';
         password = 'administrator';
     }

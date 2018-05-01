@@ -16,11 +16,12 @@ import Dig from './components/Dig';
 import {Text} from "react-native";
 
 
-const TabIcon = ({ selected, title }) => {
+const TabIcon = ({ focused , title}) => {
+    console.log('a;lkdsjf;lksa',focused);
     return (
-        <Text style={{color: selected ? 'red' :'black'}}>{title}</Text>
-    );
-}
+        <Text style={{color: focused ? 'red' : 'black'}}>{title}</Text>
+    )
+};
 
 const RouterComponent = () => {
     return(
@@ -38,13 +39,11 @@ const RouterComponent = () => {
                             tabs={true}
                             tabBarStyle={{ backgroundColor: '#FFFFFF' }}
                             tabBarPosition="bottom"
+                            showLabel={false}
+                            activeTintColor={'red'}
                         >
-                            <Scene key="pingTab" title='Ping' icon={TabIcon}>
-                                <Scene key='ping' title='Ping' component={ Ping } hideNavBar/>
-                            </Scene>
-                            <Scene key="digTab" title='Dig' icon={TabIcon}>
-                                <Scene key='dig' title='Dig' component={ Dig } hideNavBar/>
-                            </Scene>
+                            <Scene key='ping' title='Ping' component={ Ping } icon={TabIcon} hideNavBar/>
+                            <Scene key='dig' title='Dig' component={ Dig } icon={TabIcon} hideNavBar/>
                         </Scene>
                     </Scene>
 
