@@ -55,8 +55,8 @@ class Ping extends Component {
                 <Header headerText={'Troubleshoot DNS'}/>
                 <CardSection>
                     <Input
-                        label="Domain Name"
-                        placeholder="example.com"
+                        label="IP Address"
+                        placeholder="127.0.0.1"
                         keyboardType="numeric"
                         onChangeText={this.onPingDomainChange.bind(this)}
                         value={this.props.pingDomain}

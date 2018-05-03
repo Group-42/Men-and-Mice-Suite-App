@@ -3,12 +3,12 @@
 
     Lists the available options in the dashboard, when an item is expanded
  */
-import React, {Component} from 'react';
-import {Text, TouchableWithoutFeedback, View, LayoutAnimation, UIManager, Image} from 'react-native';
-import {connect} from 'react-redux';
-import {CardSection} from './common';
-import {DashHealth} from "./DashHealth";
-import {selectSubcategory, selectCategory} from '../actions/DashboardActions';
+import React, { Component } from 'react';
+import { Text, TouchableWithoutFeedback, View, LayoutAnimation, UIManager, Image } from 'react-native';
+import { connect } from 'react-redux';
+import { CardSection } from './common';
+import { DashHealth } from "./DashHealth";
+import { selectSubcategory, selectCategory } from '../actions/DashboardActions';
 
 class ListItem extends Component {
     componentWillUpdate() {
@@ -19,18 +19,22 @@ class ListItem extends Component {
     // renders subcategories when category is pressed and expands
     // there is a special when there is only one subcategory, since they are structured differently
     renderSubcategories() {
-        const {subsectionStyle} = styles;
-        const {library, expanded} = this.props;
+        const { subsectionStyle, infoImageStyle } = styles;
+        const { library, expanded } = this.props;
         if(expanded){
             if(library.subNotifications.length > 1) {
                 return (
                     <CardSection>
-                        <View style={subsectionStyle}>
+                        <View style={ subsectionStyle }>
                             {library.subNotifications.map((r) => <DashHealth
-                                healthStatus={r.status}
+                                healthStatus={ r.status }
                                 onPress={() => this.props.selectSubcategory(r)}
-                                key={r}>
-                                {r.description}
+                                key={ r }>
+                                { r.description }
+                                <Image
+                                    source={require('../icons/info_icon.png')}
+                                    style={ infoImageStyle }
+                                />
                                 </DashHealth>)}
                         </View>
                     </CardSection>
@@ -39,11 +43,15 @@ class ListItem extends Component {
             else if(library.subNotifications.lenght = 1) {
                 return (
                     <CardSection>
-                        <View style={subsectionStyle}>
+                        <View style={ subsectionStyle }>
                             <DashHealth
                                 healthStatus={library.subNotifications.notifications.status}
                                 onPress={() => this.props.selectSubcategory(library.subNotifications.notifications)}>
                                     {library.subNotifications.notifications.description}
+                                <Image
+                                    source={require('../icons/info_icon.png')}
+                                    style={ infoImageStyle }
+                                />
                             </DashHealth>
                         </View>
                     </CardSection>
@@ -53,20 +61,20 @@ class ListItem extends Component {
     }
 
     renderImage() {
-        const {arrowStyle} = styles;
+        const { arrowStyle } = styles;
 
         if(this.props.expanded) {
             return(
                 <Image
                     source={require('../icons/Dashboard_opened.png')}
-                    style={arrowStyle}
+                    style={ arrowStyle }
                 />
             );
         } else {
             return (
                 <Image
                     source={require('../icons/Dashboard_closed.png')}
-                    style={arrowStyle}
+                    style={ arrowStyle }
                 />
             );
         }
@@ -80,21 +88,21 @@ class ListItem extends Component {
                 return(
                     <Image
                         source={require('../icons/Dashboard_greencheck.png')}
-                        style={boxStyle}
+                        style={ boxStyle }
                     />
                 );
             case 'warning':
                 return (
                     <Image
                         source={require('../icons/Dashboard_yellowwarning.png')}
-                        style={boxStyle}
+                        style={ boxStyle }
                     />
                 );
             default:
                 return (
                     <Image
                         source={require('../icons/Dashboard_rederror.png')}
-                        style={boxStyle}
+                        style={ boxStyle }
                     />
                 );
         }
@@ -110,16 +118,16 @@ class ListItem extends Component {
     }
 
     render() {
-        const {titleStyle, cardStyle} = styles;
-        const {description, status} = this.props.library;
+        const { titleStyle, cardStyle } = styles;
+        const { description, status } = this.props.library;
 
         return(
             <TouchableWithoutFeedback onPress={() => this.toExpandOrNotToExpand(description)}>
                 <View>
-                    <CardSection style={cardStyle}>
+                    <CardSection style={ cardStyle }>
                         {this.renderHealthStatus(status)}
-                        <Text style={titleStyle}>
-                            {description}
+                        <Text style={ titleStyle }>
+                            { description }
                         </Text>
                         {this.renderImage()}
                     </CardSection>
@@ -155,6 +163,10 @@ const styles = {
         flexDirection: 'column',
         marginLeft: 25
     },
+    infoImageStyle: {
+        width: 55,
+        height: 55
+    },
     arrowStyle: {
         marginTop: 20,
         marginLeft: 25,
@@ -166,7 +178,7 @@ const styles = {
 
 const mapStateToProps = (state, ownProps) => {
     const expanded = state.selectedCategory === ownProps.library.description;
-    return {expanded};
+    return { expanded };
 };
 
 export default connect(mapStateToProps, {selectSubcategory, selectCategory})(ListItem);

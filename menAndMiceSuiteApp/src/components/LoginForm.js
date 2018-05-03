@@ -73,7 +73,7 @@ class LoginForm extends Component {
                     </View>
                     <CardSection>
                         <Input
-                            label="Domain Name"
+                            label="Server Name"
                             placeholder="mmsuite.company.com"
                             onChangeText={ this.onServerNameChange.bind(this) }
                             value={ this.props.serverName }

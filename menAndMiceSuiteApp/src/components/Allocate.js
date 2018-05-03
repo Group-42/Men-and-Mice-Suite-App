@@ -148,7 +148,7 @@ class Allocate extends Component {
                     <View>
                         <CardSection>
                             <Input
-                                label="Domain Name:"
+                                label="Host Name:"
                                 placeholder="mmsuite.company.com"
                                 onChangeText={this.onDomainNameChanged.bind(this)}
                                 value={this.props.domain}
@@ -236,7 +236,6 @@ class Allocate extends Component {
                             placeholder="127.0.0.1"
                             onChangeText={this.onIpRangeChanged.bind(this)}
                             value={this.props.ipRange}
-                            keyboardType="numeric"
                         />
                     </CardSection>
                     <CardSection>
