@@ -67,6 +67,9 @@ export const getUserInfo = async() => {
         .then(data => {
             password = data;
         });
+    console.log('Server:', serverName);
+    console.log('user:', username);
+    console.log('pass:', password);
 
     return [serverName, username, password];
 };
