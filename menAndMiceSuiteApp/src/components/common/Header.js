@@ -1,21 +1,31 @@
 // import libraries for making a component
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import BurgerMenu from "./BurgerMenu";
 
 // make a component
 const Header = ({ onPress, headerText }) => {
-    const { textStyle, viewStyle, boxStyle} = styles;
+    const { textStyle, viewStyle, boxStyle } = styles;
 
-    return <View style={viewStyle}>
-        <Image
-            source={require('../../icons/icon.png')}
-            style={boxStyle}
-        />
+    return <View  style={ viewStyle }>
+        <TouchableOpacity
+            onPress={() => {
+                Actions.pop();
+                Actions.push('dashboard');
+            }}
+        >
+            <Image
+                source={require('../../icons/icon.png')}
+                style={ boxStyle }
+            />
+        </TouchableOpacity>
 
-        <Text style={textStyle}>{headerText}</Text>
 
-        <BurgerMenu headerText={headerText}/>
+
+        <Text style={textStyle}>{ headerText }</Text>
+
+        <BurgerMenu headerText={ headerText }/>
     </View>
 };
 
