@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, Image } from 'react-native';
 import { connect } from "react-redux";
-import { Actions, ActionConst } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import { logoutUser } from "../../actions";
 import {
     Menu,

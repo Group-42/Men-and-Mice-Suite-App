@@ -8,7 +8,6 @@ import { Scene, Router } from 'react-native-router-flux';
 import LoginForm from './components/LoginForm';
 import Dashboard from './components/Dashboard';
 import Allocate from './components/Allocate';
-import Troubleshoot from './components/Troubleshoot';
 import Settings from './components/Settings';
 import DashboardDetail from './components/DashboardDetail';
 import Ping from './components/Ping';
@@ -19,7 +18,7 @@ import DashboardDetailsOk from "./components/DashboardDetailsOk";
 
 const TabIcon = ({ focused , title}) => {
     return (
-        <Text style={{color: focused ? 'red' : 'black'}}>{title}</Text>
+        <Text style={{color: focused ? '#F7B52B' : '#F5F5F5'}}>{title}</Text>
     )
 };
 
@@ -36,11 +35,12 @@ const RouterComponent = () => {
                     <Scene key="troubleshoot">
                         <Scene
                             key="tabbar"
-                            tabs={true}
-                            tabBarStyle={{ backgroundColor: '#FFFFFF' }}
+                            tabs={ true }
+                            activeBackgroundColor={ '#19415F' }
+                            inactiveBackgroundColor={ '#29495B' }
                             tabBarPosition="bottom"
-                            showLabel={false}
-                            activeTintColor={'red'}
+                            showLabel={ false }
+                            swipeEnabled={ true }
                         >
                             <Scene key='ping' title='Ping' component={ Ping } icon={TabIcon} hideNavBar/>
                             <Scene key='dig' title='Dig' component={ Dig } icon={TabIcon} hideNavBar/>
