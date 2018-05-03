@@ -14,10 +14,10 @@ import DashboardDetail from './components/DashboardDetail';
 import Ping from './components/Ping';
 import Dig from './components/Dig';
 import {Text} from "react-native";
+import DashboardDetailsOk from "./components/DashboardDetailsOk";
 
 
 const TabIcon = ({ focused , title}) => {
-    console.log('a;lkdsjf;lksa',focused);
     return (
         <Text style={{color: focused ? 'red' : 'black'}}>{title}</Text>
     )
@@ -50,6 +50,7 @@ const RouterComponent = () => {
                     <Scene key="settings" component={ Settings } title="Settings" hideNavBar/>
                     <Scene key="dashboard" component={ Dashboard } title="Dashboard" initial hideNavBar/>
                     <scene key="dashDetail" component={ DashboardDetail } title="Dashboard Detail" hideNavBar/>
+                    <scene key="dashDetailOk" component={ DashboardDetailsOk } title="Dashboard Detail" hideNavBar/>
                 </Scene>
             </Scene>
         </Router>

@@ -36,6 +36,8 @@ class Dashboard extends Component{
     }
 
     renderDash() {
+        console.log('isFetching',this.props.isFetching);
+        console.log('afterPressAction',this.props.afterPressAction);
         if(this.props.isFetching || this.props.afterPressAction) {
             return <Spinner size="large"/>
         }
