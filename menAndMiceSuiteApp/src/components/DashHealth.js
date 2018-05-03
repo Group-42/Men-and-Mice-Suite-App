@@ -13,7 +13,7 @@ const DashHealth = ({ children, healthStatus, onPress, pressed }) => {
     if(healthStatus === 'ok')
     {
         return(
-            <View style={ viewStyle }>
+            <TouchableOpacity onPress={ onPress } style={viewStyle} key={ pressed }>
                 <Image
                     source={require('../icons/Dashboard_greencheck.png')}
                     style={boxStyle}
@@ -22,7 +22,7 @@ const DashHealth = ({ children, healthStatus, onPress, pressed }) => {
                 <Text style={textStyle}>
                     {children}
                 </Text>
-            </View>
+            </TouchableOpacity>
         );
     }
     else if( healthStatus === 'warning'){

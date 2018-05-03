@@ -100,13 +100,21 @@ class ListItem extends Component {
         }
     }
 
+    toExpandOrNotToExpand(description) {
+        if(this.props.expanded) {
+            this.props.selectCategory('');
+        }
+        else{
+            this.props.selectCategory(description);
+        }
+    }
 
     render() {
         const {titleStyle, cardStyle} = styles;
         const {description, status} = this.props.library;
 
         return(
-            <TouchableWithoutFeedback onPress={() => this.props.selectCategory(description)}>
+            <TouchableWithoutFeedback onPress={() => this.toExpandOrNotToExpand(description)}>
                 <View>
                     <CardSection style={cardStyle}>
                         {this.renderHealthStatus(status)}

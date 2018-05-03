@@ -16,16 +16,16 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch(action.type){
         case GETTING_HEALTH_STATUS:
-            return {...state, isFetching: true};
+            return {...state, isFetching: true, error: ''};
 
         case GET_HEALTH_STATUS_SUCCESS:
-            return {...state, data: action.payload, isFetching: false};
+            return {...state, data: action.payload, isFetching: false, error: ''};
 
         case GETTING_HEALTH_STATUS_FAIL:
             return {...state, isFetching: false, error: 'An error occurred'};
 
         case FETCHING_USER_INFO:
-            return {...state, loading: true, user: []};
+            return {...state, loading: true, user: [], error: ''};
 
         case FETCHING_USER_INFO_SUCCESS:
             return {...state, loading: false, user: action.payload};
