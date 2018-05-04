@@ -97,7 +97,4 @@ const loginUserFail = (dispatch) => {
 const removeUserInfo = () => {
     AsyncStorage.multiRemove(['@MMStorage:serverName','@MMStorage:username', '@MMStorage:password'])
         .then((value) => console.log('removeUserInfo: ', value));
-    /*AsyncStorage.removeItem('@MMStorage:serverName').then((value) => console.log('Server removed:', value));
-    AsyncStorage.removeItem('@MMStorage:username').then((value) => console.log('username removed:', value));
-    AsyncStorage.removeItem('@MMStorage:password').then((value) => console.log('password removed:', value));*/
 };
