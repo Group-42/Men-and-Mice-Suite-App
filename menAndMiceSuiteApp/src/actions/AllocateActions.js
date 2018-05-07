@@ -2,6 +2,7 @@
     AllocateActions.js
 
     Contains all functions that is needed to allocate IP address and create DNS records
+    Used in Allocate.js
  */
 import { AsyncStorage } from "react-native";
 import axios from 'axios';
@@ -18,6 +19,7 @@ import {
     TTL_CHANGED,
 } from "./types";
 
+// returns an action when text in IP range text field changes
 export const ipRangeChanged = (text) => {
     return {
         type: IP_RANGE_CHANGED,
@@ -46,6 +48,7 @@ export const recordTypeChanged = (type) => {
     };
 };
 
+// retrieves the user info from a json file that only React Native has access to
 const getUserInfo = async() => {
     let serverName = '';
     let username = '';
@@ -67,13 +70,14 @@ const getUserInfo = async() => {
     return [serverName, username, password];
 };
 
+// makes a GET request to the API to get the next free IP address and dispatches the appropriate actions
 export const nextFreeAddress = (ipRange)  => {
     let serverName = '';
     let username = '';
     let password = '';
 
     return async (dispatch) => {
-        dispatch({type: FETCHING_NEXT_IP});
+        dispatch({type: FETCHING_NEXT_IP});// start spinner for fetching data
 
         await getUserInfo().then((info) => {
             serverName = info[0];
@@ -99,6 +103,7 @@ export const nextFreeAddress = (ipRange)  => {
     };
 };
 
+// returns an action with the next free IP address
 const getNextIpSuccess = (nextIP) => {
     return {
         type: FETCHING_NEXT_IP_SUCCESS,
@@ -106,21 +111,21 @@ const getNextIpSuccess = (nextIP) => {
     };
 };
 
+// returns an action with a error message
 const getNextIpFail = () => {
     return {
         type: FETCHING_NEXT_IP_FAIL
     };
 };
 
-
-
+// makes a POST request to the API for creating a new DNS record, and dispatches the appropriate actions
 export const createDNSRecord = ({domain, ttl, recordType, nextIP}) => {
     let serverName = '';
     let username = '';
     let password = '';
 
     return async (dispatch) => {
-        dispatch({type: POSTING_DNS_RECORD});
+        dispatch({type: POSTING_DNS_RECORD});// start spinner for fetching data
 
         await getUserInfo().then((info) => {
             serverName = info[0];
@@ -153,12 +158,14 @@ export const createDNSRecord = ({domain, ttl, recordType, nextIP}) => {
     };
 };
 
+// returns an action to stop a spinner
 const createDNSRecordSuccess = () => {
     return {
         type: POSTING_DNS_RECORD_SUCCESS
     };
 };
 
+// returns an action to stop a spinner and send an error message
 const createDNSRecordFail = () => {
     return {
         type: POSTING_DNS_RECORD_FAIL

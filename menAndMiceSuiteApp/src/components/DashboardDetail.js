@@ -1,3 +1,8 @@
+/*
+    DashboardDetail.js
+
+    Shows the details of what is wrong with the chosen subcategory, displayed in a scroll view
+ */
 import React, { Component } from 'react';
 import { ScrollView, ListView, Text, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -23,10 +28,12 @@ class DashboardDetail extends Component {
         });
     }
 
+    // renders the information about a single error in a list
     static renderRow(detailData) {
-        return <DetailListItem detailData={detailData}/>
+        return <DetailListItem detailData={ detailData }/>
     }
 
+    // returns to the previous screen
     onButtonPress() {
         this.props.backButtonPushed();
     }
@@ -37,7 +44,7 @@ class DashboardDetail extends Component {
         );
     }
 
-
+    // renders the whole screen
     render(){
         const { dashboardStyle, endOfLineStyle, detailHeaderStyle } = styles;
         const {description, status } = this.props.subcategoryData;
@@ -49,7 +56,7 @@ class DashboardDetail extends Component {
                     {this.renderButton()}
 
                     <DashHealth healthStatus={ status }>
-                        {description}
+                        { description }
                     </DashHealth>
                 </View>
                 <ScrollView>
@@ -86,9 +93,9 @@ const styles = {
     }
 };
 
-const mapStateToProps = ({selectedCategory}) => {
-    const{subcategoryData, afterPressAction} = selectedCategory;
-    return {subcategoryData, afterPressAction};
+const mapStateToProps = ({ selectedCategory }) => {
+    const{ subcategoryData, afterPressAction } = selectedCategory;
+    return { subcategoryData, afterPressAction };
 };
 
-export default connect(mapStateToProps, {backButtonPushed})(DashboardDetail);
+export default connect( mapStateToProps, { backButtonPushed })( DashboardDetail );

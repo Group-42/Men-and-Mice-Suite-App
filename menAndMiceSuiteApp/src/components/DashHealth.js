@@ -1,40 +1,40 @@
 /*
     DashHealth.js
 
-    simple text field with a colored box.
+    Simple text field with a colored box with a corresponding icon.
     Used to indicate health status on the dashboard
  */
 import React from 'react';
-import {TouchableOpacity, Text, Image, View} from 'react-native';
+import { TouchableOpacity, Text, Image } from 'react-native';
 
 const DashHealth = ({ children, healthStatus, onPress, pressed }) => {
-    const {viewStyle, textStyle, boxStyle} = styles;
+    const { viewStyle, textStyle, boxStyle } = styles;
 
     if(healthStatus === 'ok')
     {
         return(
-            <TouchableOpacity onPress={ onPress } style={viewStyle} key={ pressed }>
+            <TouchableOpacity onPress={ onPress } style={ viewStyle } key={ pressed }>
                 <Image
-                    source={require('../icons/Dashboard_greencheck.png')}
-                    style={boxStyle}
+                    source={ require('../icons/Dashboard_greencheck.png') }
+                    style={ boxStyle }
                 />
 
                 <Text style={textStyle}>
-                    {children}
+                    { children }
                 </Text>
             </TouchableOpacity>
         );
     }
     else if( healthStatus === 'warning'){
         return(
-            <TouchableOpacity onPress={ onPress } style={viewStyle} key={ pressed }>
+            <TouchableOpacity onPress={ onPress } style={ viewStyle } key={ pressed }>
                 <Image
-                    source={require('../icons/Dashboard_yellowwarning.png')}
-                    style={boxStyle}
+                    source={ require('../icons/Dashboard_yellowwarning.png') }
+                    style={ boxStyle }
                 />
 
-                <Text style={textStyle}>
-                    {children}
+                <Text style={ textStyle }>
+                    { children }
                 </Text>
             </TouchableOpacity>
         );
@@ -43,12 +43,12 @@ const DashHealth = ({ children, healthStatus, onPress, pressed }) => {
         return(
             <TouchableOpacity onPress={ onPress } style={ viewStyle } key={ pressed }>
                 <Image
-                    source={require('../icons/Dashboard_rederror.png')}
-                    style={boxStyle}
+                    source={ require('../icons/Dashboard_rederror.png') }
+                    style={ boxStyle }
                 />
 
-                <Text style={textStyle}>
-                    {children}
+                <Text style={ textStyle }>
+                    { children }
                 </Text>
             </TouchableOpacity>
         );

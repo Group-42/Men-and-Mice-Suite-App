@@ -1,16 +1,21 @@
-import React, {Component} from 'react'
-import {View, Text} from 'react-native'
-import {Header, CardSection} from "./common";
+/*
+    Settings.js
+
+    A collection of changeable variables
+ */
+import React, { Component } from 'react'
+import { View, Text } from 'react-native'
+import { Header, CardSection } from "./common";
 
 class Settings extends Component {
     render() {
-        const {settingsStyle} = styles;
+        const { settingsStyle } = styles;
 
         return(
             <View style={ settingsStyle }>
-                <Header headerText={'Settings'}/>
+                <Header headerText={ 'Settings' }/>
                 <CardSection>
-                    <Text style={{color: 'white'}}>Settings, coming soon to a app near you</Text>
+                    <Text style={{ color: 'white' }}>Settings, coming soon to a app near you</Text>
                 </CardSection>
             </View>
         );

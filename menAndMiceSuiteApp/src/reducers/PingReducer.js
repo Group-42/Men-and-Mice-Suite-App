@@ -6,7 +6,7 @@
 import {
     PING_DOMAIN_CHANGED,
     PINGING,
-    PING_SUCCESSS,
+    PING_SUCCESS,
     PING_FAIL
 } from "../actions/types";
 
@@ -23,7 +23,7 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, pingDomain: action.payload};
         case PINGING:
             return {...state, pinging: true, pingError: ''};
-        case PING_SUCCESSS:
+        case PING_SUCCESS:
             return {...state, pinging: false, pingResult: action.payload};
         case PING_FAIL:
             return {...state, pinging: false, pingError:'Something went wrong'};

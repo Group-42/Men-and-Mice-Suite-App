@@ -4,14 +4,15 @@
     The initial screen that the user sees.
     simple input fields and login button
  */
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {View, Image, Text, Keyboard} from 'react-native';
-import {serverNameChanged, usernameChanged, passwordChanged, loginUser} from '../actions';
-import {Card, CardSection, Input, Button, Spinner} from "./common";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { View, Image, Text, Keyboard } from 'react-native';
+import { serverNameChanged, usernameChanged, passwordChanged, loginUser } from '../actions';
+import { Card, CardSection, Input, Button, Spinner } from "./common";
 
 class LoginForm extends Component {
 
+    // on text change dispatch action
     onServerNameChange(text) {
         this.props.serverNameChanged(text);
     }
@@ -25,25 +26,27 @@ class LoginForm extends Component {
     }
 
     onButtonPress() {
-        const {serverName, username, password} = this.props;
+        const { serverName, username, password } = this.props;
 
         Keyboard.dismiss();
-        this.props.loginUser({serverName, username, password});
+        this.props.loginUser({ serverName, username, password });
     }
 
+    // renders login error if it occurs
     renderError() {
 
         if(this.props.error) {
             return (
                 <View>
-                    <Text style={styles.errorTextStyle}>
-                        {this.props.error}
+                    <Text style={ styles.errorTextStyle }>
+                        { this.props.error }
                     </Text>
                 </View>
             )
         }
     }
 
+    // renders spinner instead of button if app is login in user
     renderButton() {
         if(this.props.loading) {
             return <Spinner size="large"/>
@@ -51,15 +54,16 @@ class LoginForm extends Component {
 
         return(
             <Button
-                onPress={this.onButtonPress.bind(this)}
-                buttonStyle={styles.buttonStyle}
-                textStyle={styles.textStyle}
+                onPress={ this.onButtonPress.bind(this) }
+                buttonStyle={ styles.buttonStyle }
+                textStyle={ styles.textStyle }
             >
                 Login
             </Button>
         );
     }
 
+    // renders the whole screen
     render() {
         return (
             <View style={ styles.loginStyle} >
@@ -148,14 +152,14 @@ const styles = {
     }
 };
 
-const mapStateToProps = ({auth}) => {
-    const {serverName, username, password, loading, error} = auth;
-    return {serverName, username, password, loading, error};
+const mapStateToProps = ({ auth }) => {
+    const { serverName, username, password, loading, error } = auth;
+    return { serverName, username, password, loading, error };
 };
 
-export default connect(mapStateToProps, {
+export default connect( mapStateToProps, {
     serverNameChanged,
     usernameChanged,
     passwordChanged,
     loginUser
-})(LoginForm);
+})( LoginForm );

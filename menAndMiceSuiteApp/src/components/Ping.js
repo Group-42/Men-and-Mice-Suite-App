@@ -1,17 +1,25 @@
-import React, {Component} from 'react'
-import {View, Text} from 'react-native'
-import {connect} from 'react-redux';
-import {Header, CardSection, Input, Button, Spinner} from "./common";
-import {pingDomainChanged, performPing} from '../actions/PingActions';
+/*
+    Ping.js
+
+    A simple form to get and IP address to perform ping on.
+    Simple input field and button
+ */
+import React, { Component } from 'react'
+import { View, Text } from 'react-native'
+import { connect } from 'react-redux';
+import { Header, CardSection, Input, Button, Spinner } from "./common";
+import { pingDomainChanged, performPing } from '../actions/PingActions';
 
 class Ping extends Component {
 
+    // on text change dispatch action
     onPingDomainChange(text) {
         this.props.pingDomainChanged(text);
     }
 
+    // renders spinner if the app is fetching data
     renderButton(){
-        const {buttonStyle, buttonLocationStyle, textStyle} = styles;
+        const { buttonStyle, buttonLocationStyle, textStyle } = styles;
 
         if(this.props.pinging) {
             return(
@@ -19,11 +27,11 @@ class Ping extends Component {
             );
         }
         return(
-            <View style={buttonLocationStyle}>
+            <View style={ buttonLocationStyle }>
                 <Button
-                    buttonStyle={buttonStyle}
-                    textStyle={textStyle}
-                    onPress={() => this.props.performPing(this.props.pingDomain)}
+                    buttonStyle={ buttonStyle }
+                    textStyle={ textStyle }
+                    onPress={ () => this.props.performPing(this.props.pingDomain) }
                 >
                     Perform Ping
                 </Button>
@@ -31,42 +39,44 @@ class Ping extends Component {
         );
     }
 
+    // renders the response from performing the ping query
     renderResponse() {
-        const {textDescriptionStyle, errorTextStyle} = styles;
+        const { textDescriptionStyle, errorTextStyle } = styles;
         if(this.props.pingError) {
             return(
-                <Text style={errorTextStyle}>{this.props.pingError}</Text>
+                <Text style={ errorTextStyle }>{ this.props.pingError }</Text>
             );
         }else if(this.props.pingResult) {
             return (
                 <View>
-                    <Text style={textDescriptionStyle}>Alive: {this.props.pingResult.alive.toString()}</Text>
-                    <Text style={textDescriptionStyle}>Ping Time: {this.props.pingResult.pingTime}</Text>
+                    <Text style={ textDescriptionStyle }>Alive: { this.props.pingResult.alive.toString() }</Text>
+                    <Text style={ textDescriptionStyle }>Ping Time: { this.props.pingResult.pingTime }</Text>
                 </View>
             );
         }
     }
 
+    // renders the whole screen
     render() {
-        const {pingStyle} = styles;
+        const { pingStyle } = styles;
 
         return(
             <View style={ pingStyle }>
-                <Header headerText={'Troubleshoot DNS'}/>
+                <Header headerText={ 'Troubleshoot DNS' }/>
                 <CardSection>
                     <Input
                         label="IP Address"
                         placeholder="127.0.0.1"
                         keyboardType="numeric"
-                        onChangeText={this.onPingDomainChange.bind(this)}
-                        value={this.props.pingDomain}
+                        onChangeText={ this.onPingDomainChange.bind(this) }
+                        value={ this.props.pingDomain }
                     />
                 </CardSection>
                 <CardSection>
-                    {this.renderButton()}
+                    { this.renderButton() }
                 </CardSection>
                 <CardSection>
-                    {this.renderResponse()}
+                    { this.renderResponse() }
                 </CardSection>
             </View>
         );
@@ -112,9 +122,9 @@ const styles = {
     }
 };
 
-const mapStateToProps = ({ping}) => {
-    const {pingDomain, pingResult, pingError, pinging} = ping;
-    return {pingDomain, pingResult, pingError, pinging};
+const mapStateToProps = ({ ping }) => {
+    const { pingDomain, pingResult, pingError, pinging } = ping;
+    return { pingDomain, pingResult, pingError, pinging };
 };
 
-export default connect(mapStateToProps, {pingDomainChanged, performPing})(Ping);
+export default connect( mapStateToProps, { pingDomainChanged, performPing })( Ping );

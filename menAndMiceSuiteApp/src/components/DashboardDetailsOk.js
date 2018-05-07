@@ -1,7 +1,12 @@
+/*
+    DashboardDetailsOK.js
+
+    Simple view with some text to let the user know that every thing is OK with the chosen subcategory
+ */
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import {CardSection, Header, BackButton, Card} from "./common";
+import { CardSection, Header, BackButton, Card } from "./common";
 import { DashHealth } from './DashHealth';
 import { backButtonPushed } from "../actions";
 
@@ -10,17 +15,18 @@ class DashboardDetailsOk extends Component {
         super();
     }
 
+    // returns to the previous screen
     onButtonPress() {
         this.props.backButtonPushed();
     }
 
     renderButton() {
         return(
-            <BackButton onPress={this.onButtonPress.bind(this)}/>
+            <BackButton onPress={ this.onButtonPress.bind(this) }/>
         );
     }
 
-
+    // renders the whole screen
     render(){
         const { dashboardStyle, detailHeaderStyle, textStyleHeader, textStyle } = styles;
         const { description, status } = this.props.subcategoryData;
@@ -29,10 +35,10 @@ class DashboardDetailsOk extends Component {
             <View style={ dashboardStyle }>
                 <Header headerText={'Details'}/>
                 <View style={ detailHeaderStyle }>
-                    {this.renderButton()}
+                    { this.renderButton() }
 
                     <DashHealth healthStatus={ status }>
-                        {description}
+                        { description }
                     </DashHealth>
                 </View>
                 <Card>
@@ -72,9 +78,9 @@ const styles = {
     }
 };
 
-const mapStateToProps = ({selectedCategory}) => {
-    const{subcategoryData, afterPressAction} = selectedCategory;
-    return {subcategoryData, afterPressAction};
+const mapStateToProps = ({ selectedCategory }) => {
+    const{ subcategoryData, afterPressAction } = selectedCategory;
+    return { subcategoryData, afterPressAction };
 };
 
-export default connect(mapStateToProps, {backButtonPushed})(DashboardDetailsOk);
+export default connect( mapStateToProps, { backButtonPushed })( DashboardDetailsOk );

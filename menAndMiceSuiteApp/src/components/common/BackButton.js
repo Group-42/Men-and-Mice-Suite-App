@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 
-
 const BackButton = ({ onPress: onPress }) => {
     const { buttonStyle, arrowStyle } = styles;
 
