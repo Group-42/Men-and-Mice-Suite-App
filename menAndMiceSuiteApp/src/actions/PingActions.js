@@ -2,12 +2,19 @@
     PingActions.js
 
     Contains all the functions needed to perform a Ping query
+    Used in Ping.js
  */
 
 import { AsyncStorage } from "react-native";
 import axios from 'axios';
-import {PING_DOMAIN_CHANGED, PING_FAIL, PING_SUCCESSS, PINGING} from "./types";
+import {
+    PING_DOMAIN_CHANGED,
+    PING_FAIL,
+    PING_SUCCESS,
+    PINGING
+} from "./types";
 
+// returns an action when text in Ip address text field changes
 export const pingDomainChanged = (text) => {
     return {
         type: PING_DOMAIN_CHANGED,
@@ -15,6 +22,7 @@ export const pingDomainChanged = (text) => {
     };
 };
 
+// retrieves the user info from a json file that only React Native has access to
 const getUserInfo = async() => {
     let serverName = '';
     let username = '';
@@ -36,13 +44,14 @@ const getUserInfo = async() => {
     return [serverName, username, password];
 };
 
+// makes a POST request to the API to ping the given IP address and dispatches the appropriate actions
 export const performPing = (domain) => {
     let serverName = '';
     let username = '';
     let password = '';
 
     return async (dispatch) => {
-        dispatch({type: PINGING});
+        dispatch({type: PINGING});// start spinner for fetching data
 
         await getUserInfo().then((info) => {
             serverName = info[0];
@@ -67,13 +76,15 @@ export const performPing = (domain) => {
     };
 };
 
+// returns an action with the response from the performPing function
 const pingSuccess = (response) => {
     return {
-        type: PING_SUCCESSS,
+        type: PING_SUCCESS,
         payload: response
     };
 };
 
+// returns an action with an error message
 const pingFail = () => {
     return {
         type: PING_FAIL

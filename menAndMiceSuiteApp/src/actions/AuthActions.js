@@ -2,10 +2,11 @@
     AuthActions.js
 
     Contains all the functions needed for user authentication
+    Used in LoginForm.js
  */
-import {AsyncStorage} from 'react-native';
+import { AsyncStorage } from 'react-native';
 import axios from 'axios';
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import {
     SERVER_NAME_CHANGED,
     USERNAME_CHANGED,
@@ -16,6 +17,7 @@ import {
     USER_LOGOUT
 } from "./types";
 
+// returns an action when text in server name text field changes
 export const serverNameChanged = (text) => {
     return {
         type: SERVER_NAME_CHANGED,
@@ -37,7 +39,8 @@ export const passwordChanged = (text) => {
     };
 };
 
-
+// makes a GET request on users to check if the server name, username and password is correct, if they are the info is
+// saved and used for all the other API calls in the app.
 export const loginUser = ({serverName, username, password}) => {
     if(serverName.trim()  === '' && username.trim() === '' && password.trim() === '') {
         serverName = 'blackstar.thorlacius.com';
@@ -46,7 +49,7 @@ export const loginUser = ({serverName, username, password}) => {
     }
 
     return(dispatch) => {
-        dispatch({type: SPINNER_START});
+        dispatch({type: SPINNER_START});// start spinner for fetching data
         axios({
             method: 'GET',
             url: 'http://' + serverName + '/mmws/api/users/' + username,
@@ -65,6 +68,7 @@ export const loginUser = ({serverName, username, password}) => {
     };
 };
 
+// saves the users info to a json file that only React Native has access to
 async function setUserInfo({serverName, username, password}) {
     try {
         await AsyncStorage.setItem('@MMStorage:serverName', serverName);
@@ -75,6 +79,8 @@ async function setUserInfo({serverName, username, password}) {
     }
 }
 
+// dispatches an logout action. Removes all the saved user info from the json file and redirects the user back to the
+// login screen
 export const logoutUser = () => {
     return(dispatch) => {
         dispatch({type: USER_LOGOUT});
@@ -83,21 +89,21 @@ export const logoutUser = () => {
     }
 };
 
+// dispatches an login action that saves the user info to the state and directs the user to the main screen(dashboard)
 const loginUserSuccess = (dispatch, user) => {
     dispatch({type: USER_LOGIN_SUCCESS, payload: user});
     console.log(user);
     Actions.main();
 };
 
+// dispatches an login fail action that is used to display an error message to the user
 const loginUserFail = (dispatch) => {
     console.log('LOGIN USER FAILED');
     dispatch({type: USER_LOGIN_FAIL});
 };
 
+// removes the user info form the json file
 const removeUserInfo = () => {
     AsyncStorage.multiRemove(['@MMStorage:serverName','@MMStorage:username', '@MMStorage:password'])
         .then((value) => console.log('removeUserInfo: ', value));
-    /*AsyncStorage.removeItem('@MMStorage:serverName').then((value) => console.log('Server removed:', value));
-    AsyncStorage.removeItem('@MMStorage:username').then((value) => console.log('username removed:', value));
-    AsyncStorage.removeItem('@MMStorage:password').then((value) => console.log('password removed:', value));*/
 };

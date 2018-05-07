@@ -2,9 +2,10 @@
     DashboardActions.js
 
     Contains all functions that dashboard will use
+    Used in Dashboard.js
  */
-import {AsyncStorage} from 'react-native';
-import {Actions, ActionConst} from 'react-native-router-flux';
+import { AsyncStorage } from 'react-native';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import axios from 'axios';
 import {
     SELECT_CATEGORY,
@@ -16,6 +17,7 @@ import {
     BEEN_CLICKED
 } from './types';
 
+// returns an action with the category title that got pressed
 export const selectCategory = (categoryId) => {
     return {
         type: SELECT_CATEGORY,
@@ -23,6 +25,8 @@ export const selectCategory = (categoryId) => {
     };
 };
 
+// dispatches an action with all of the subcategories data. And directs the user to the presses subcategories
+// detail screen
 export const selectSubcategory = (subcategoryData) => {
 
     return (dispatch) => {
@@ -41,6 +45,7 @@ export const selectSubcategory = (subcategoryData) => {
     };
 };
 
+// dispatches an action that disables the view and returns the user to the previous screen
 export const backButtonPushed = () => {
     return (dispatch) => {
         dispatch({
@@ -50,6 +55,7 @@ export const backButtonPushed = () => {
     };
 };
 
+// retrieves the user info from a json file that only React Native has access to
 export const getUserInfo = async() => {
     let serverName = '';
     let username = '';
@@ -67,13 +73,11 @@ export const getUserInfo = async() => {
         .then(data => {
             password = data;
         });
-    console.log('Server:', serverName);
-    console.log('user:', username);
-    console.log('pass:', password);
 
     return [serverName, username, password];
 };
 
+// makes a GET request to get the status health bar from the API and dispatches the appropriate actions
 export const getHealthStatusBar = () => {
     let serverName;
     let username;
@@ -110,6 +114,7 @@ export const getHealthStatusBar = () => {
     };
 };
 
+// returns an actions with all the data from the getHealthStatusBar function
 export function getDataSuccess(data) {
     console.log('getDataSuccess:', data);
     return {
@@ -118,6 +123,7 @@ export function getDataSuccess(data) {
     }
 }
 
+// returns an action with an error message
 export function getDataFail() {
     return {type: GETTING_HEALTH_STATUS_FAIL}
 }

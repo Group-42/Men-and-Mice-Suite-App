@@ -1,3 +1,8 @@
+/*
+    BurgerMenu.js
+
+    Contains the UI for the burger menu and redirects the user to the pressed option screen
+ */
 import React, { Component } from 'react';
 import { Text, Image } from 'react-native';
 import { connect } from "react-redux";
@@ -11,6 +16,8 @@ import {
 } from 'react-native-popup-menu';
 
 class BurgerMenu extends Component {
+
+    // replaces the current place in the menu stack with the pressed option screen
     replace(scene){
         Actions.pop();
         Actions.push(scene);

@@ -28,7 +28,7 @@ export const GETTING_HEALTH_STATUS_FAIL = 'get_appliance_health_fail';
 //### PING
 export const PING_DOMAIN_CHANGED = 'ping_domain_changed';
 export const PINGING = 'pinging';
-export const PING_SUCCESSS = 'ping_success';
+export const PING_SUCCESS = 'ping_success';
 export const PING_FAIL = 'ping_fail';
 
 //### ALLOCATE IP

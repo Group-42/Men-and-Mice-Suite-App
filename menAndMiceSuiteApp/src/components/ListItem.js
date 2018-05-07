@@ -3,12 +3,12 @@
 
     Lists the available options in the dashboard, when an item is expanded
  */
-import React, {Component} from 'react';
-import {Text, TouchableWithoutFeedback, View, LayoutAnimation, UIManager, Image} from 'react-native';
-import {connect} from 'react-redux';
-import {CardSection} from './common';
-import {DashHealth} from "./DashHealth";
-import {selectSubcategory, selectCategory} from '../actions/DashboardActions';
+import React, { Component } from 'react';
+import { Text, TouchableWithoutFeedback, View, LayoutAnimation, UIManager, Image } from 'react-native';
+import { connect } from 'react-redux';
+import { CardSection } from './common';
+import { DashHealth } from "./DashHealth";
+import { selectSubcategory, selectCategory } from '../actions/DashboardActions';
 
 class ListItem extends Component {
     componentWillUpdate() {
@@ -17,20 +17,24 @@ class ListItem extends Component {
     }
 
     // renders subcategories when category is pressed and expands
-    // there is a special when there is only one subcategory, since they are structured differently
+    // there is a special case when there is only one subcategory, since they are structured differently
     renderSubcategories() {
-        const {subsectionStyle} = styles;
-        const {library, expanded} = this.props;
+        const { subsectionStyle, infoImageStyle } = styles;
+        const { library, expanded } = this.props;
         if(expanded){
             if(library.subNotifications.length > 1) {
                 return (
                     <CardSection>
-                        <View style={subsectionStyle}>
+                        <View style={ subsectionStyle }>
                             {library.subNotifications.map((r) => <DashHealth
-                                healthStatus={r.status}
-                                onPress={() => this.props.selectSubcategory(r)}
-                                key={r}>
-                                {r.description}
+                                healthStatus={ r.status }
+                                onPress={ () => this.props.selectSubcategory(r) }
+                                key={ r }>
+                                { r.description }
+                                <Image
+                                    source={ require('../icons/info_icon.png') }
+                                    style={ infoImageStyle }
+                                />
                                 </DashHealth>)}
                         </View>
                     </CardSection>
@@ -39,11 +43,15 @@ class ListItem extends Component {
             else if(library.subNotifications.lenght = 1) {
                 return (
                     <CardSection>
-                        <View style={subsectionStyle}>
+                        <View style={ subsectionStyle }>
                             <DashHealth
-                                healthStatus={library.subNotifications.notifications.status}
-                                onPress={() => this.props.selectSubcategory(library.subNotifications.notifications)}>
-                                    {library.subNotifications.notifications.description}
+                                healthStatus={ library.subNotifications.notifications.status }
+                                onPress={ () => this.props.selectSubcategory(library.subNotifications.notifications) }>
+                                    { library.subNotifications.notifications.description }
+                                <Image
+                                    source={ require('../icons/info_icon.png') }
+                                    style={ infoImageStyle }
+                                />
                             </DashHealth>
                         </View>
                     </CardSection>
@@ -52,26 +60,28 @@ class ListItem extends Component {
         }
     }
 
+    // renders the icon indicator for an open or closed accordion menu
     renderImage() {
-        const {arrowStyle} = styles;
+        const { arrowStyle } = styles;
 
         if(this.props.expanded) {
             return(
                 <Image
-                    source={require('../icons/Dashboard_opened.png')}
-                    style={arrowStyle}
+                    source={ require('../icons/Dashboard_opened.png') }
+                    style={ arrowStyle }
                 />
             );
         } else {
             return (
                 <Image
-                    source={require('../icons/Dashboard_closed.png')}
-                    style={arrowStyle}
+                    source={ require('../icons/Dashboard_closed.png') }
+                    style={ arrowStyle }
                 />
             );
         }
     }
 
+    // renders the correct health indicator for the categories
     renderHealthStatus(healthStatus) {
         const {boxStyle} = styles;
 
@@ -79,27 +89,28 @@ class ListItem extends Component {
             case 'ok':
                 return(
                     <Image
-                        source={require('../icons/Dashboard_greencheck.png')}
-                        style={boxStyle}
+                        source={ require('../icons/Dashboard_greencheck.png') }
+                        style={ boxStyle }
                     />
                 );
             case 'warning':
                 return (
                     <Image
-                        source={require('../icons/Dashboard_yellowwarning.png')}
-                        style={boxStyle}
+                        source={ require('../icons/Dashboard_yellowwarning.png') }
+                        style={ boxStyle }
                     />
                 );
             default:
                 return (
                     <Image
-                        source={require('../icons/Dashboard_rederror.png')}
-                        style={boxStyle}
+                        source={ require('../icons/Dashboard_rederror.png') }
+                        style={ boxStyle }
                     />
                 );
         }
     }
 
+    // expands and collapses the accordion menu when the same category is pressed multiple times
     toExpandOrNotToExpand(description) {
         if(this.props.expanded) {
             this.props.selectCategory('');
@@ -109,21 +120,22 @@ class ListItem extends Component {
         }
     }
 
+    // renders the whole screen
     render() {
-        const {titleStyle, cardStyle} = styles;
-        const {description, status} = this.props.library;
+        const { titleStyle, cardStyle } = styles;
+        const { description, status } = this.props.library;
 
         return(
-            <TouchableWithoutFeedback onPress={() => this.toExpandOrNotToExpand(description)}>
+            <TouchableWithoutFeedback onPress={ () => this.toExpandOrNotToExpand(description) }>
                 <View>
-                    <CardSection style={cardStyle}>
-                        {this.renderHealthStatus(status)}
-                        <Text style={titleStyle}>
-                            {description}
+                    <CardSection style={ cardStyle }>
+                        { this.renderHealthStatus(status) }
+                        <Text style={ titleStyle }>
+                            { description }
                         </Text>
-                        {this.renderImage()}
+                        { this.renderImage() }
                     </CardSection>
-                    {this.renderSubcategories()}
+                    { this.renderSubcategories() }
                 </View>
             </TouchableWithoutFeedback>
         );
@@ -155,6 +167,10 @@ const styles = {
         flexDirection: 'column',
         marginLeft: 25
     },
+    infoImageStyle: {
+        width: 55,
+        height: 55
+    },
     arrowStyle: {
         marginTop: 20,
         marginLeft: 25,
@@ -164,9 +180,9 @@ const styles = {
     }
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ( state, ownProps ) => {
     const expanded = state.selectedCategory === ownProps.library.description;
-    return {expanded};
+    return { expanded };
 };
 
-export default connect(mapStateToProps, {selectSubcategory, selectCategory})(ListItem);
+export default connect( mapStateToProps, { selectSubcategory, selectCategory })( ListItem );

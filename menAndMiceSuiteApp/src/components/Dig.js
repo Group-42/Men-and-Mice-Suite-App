@@ -1,16 +1,22 @@
-import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+/*
+    Dig.js
+
+    A form used to gather information to perform a dig query.
+    Simple input field, dropdown box and button
+ */
+import React, { Component } from 'react';
+import { View, Text } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
-import {Header, CardSection, Input, Button} from "./common";
+import { Header, CardSection, Input, Button } from "./common";
 
 class Dig extends Component {
     render() {
-        const {digStyle, dropdownButtonStyle, dropdownButtonTextStyle, textDescriptionStyle,
-            buttonLocationStyle, buttonStyle, textStyle} = styles;
+        const { digStyle, dropdownButtonStyle, dropdownButtonTextStyle, textDescriptionStyle,
+            buttonLocationStyle, buttonStyle, textStyle } = styles;
 
         return(
             <View style={ digStyle }>
-                <Header headerText={'Troubleshoot DNS'}/>
+                <Header headerText={ 'Troubleshoot DNS' }/>
                 <CardSection>
                     <Input
                         label="Domain Name:"
@@ -24,17 +30,17 @@ class Dig extends Component {
                         options={['A', 'PTR', 'MX', 'NS', 'SOA', 'HINFO', 'TXT', 'ANY']}
                         style={ dropdownButtonStyle }
                         textStyle={ dropdownButtonTextStyle }
-                        defaultValue={"Please select"}
+                        defaultValue={ "Please select" }
                         dropdownStyle={{ backgroundColor: '#29495B', flex: 1 }}
                         dropdownTextStyle={ dropdownButtonTextStyle }
                     />
                 </CardSection>
                 <CardSection>
-                    <View style={buttonLocationStyle}>
+                    <View style={ buttonLocationStyle }>
                         <Button
-                            onPress={() => {alert("TODO make button do something")}}
-                            buttonStyle={buttonStyle}
-                            textStyle={textStyle}
+                            onPress={() => { alert("TODO make button do something") }}
+                            buttonStyle={ buttonStyle }
+                            textStyle={ textStyle }
                         >
                             Perform Query
                         </Button>

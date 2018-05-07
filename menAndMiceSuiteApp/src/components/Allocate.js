@@ -1,9 +1,23 @@
+/*
+    Allocate.js
+
+    Screen used to get the info needed to create a new DNS record for the given IP address
+    Simple initial display with one input field and one button. If the given IP range is valid, then an dropdown box
+    appears with the different types of DNS record. The rest of the UI is dictated by the chosen DNS record type
+ */
 import React, { Component } from 'react';
 import { View, Text, Keyboard } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import ModalDropdown from 'react-native-modal-dropdown';
-import {Header, Card, CardSection, Button, Input, Spinner} from "./common";
-import {ipRangeChanged, domainNameChanged, ttlChanged, recordTypeChanged, nextFreeAddress, createDNSRecord} from '../actions';
+import { Header, Card, CardSection, Button, Input, Spinner } from "./common";
+import {
+    ipRangeChanged,
+    domainNameChanged,
+    ttlChanged,
+    recordTypeChanged,
+    nextFreeAddress,
+    createDNSRecord
+} from '../actions';
 
 class Allocate extends Component {
     constructor(props){
@@ -12,6 +26,8 @@ class Allocate extends Component {
             dnsRecordType: ''
         }
     }
+
+    // on text change dispatch action
     onIpRangeChanged(text) {
         this.props.ipRangeChanged(text);
     }
@@ -57,6 +73,7 @@ class Allocate extends Component {
         this.props.recordTypeChanged(type);
     }
 
+    // display spinner instead of button if app is fetching data
     renderFetchButton() {
         if(this.props.fetching)
         {
@@ -64,31 +81,31 @@ class Allocate extends Component {
         }
         return (
             <Button
-                onPress={this.onFetchButtonPress.bind(this)}
-                buttonStyle={styles.buttonFetchStyle}
-                textStyle={styles.textStyle}
+                onPress={ this.onFetchButtonPress.bind(this) }
+                buttonStyle={ styles.buttonFetchStyle }
+                textStyle={ styles.textStyle }
             >
                 Fetch Next IP
             </Button>
         )
     }
 
+    // fetches the next free IP address in the given range
     onFetchButtonPress() {
-        const {ipRange} = this.props;
+        const { ipRange } = this.props;
 
         Keyboard.dismiss();
         this.props.nextFreeAddress(ipRange);
     }
 
     renderApplyButton() {
-        if(this.props.isPosting)
-        {
+        if(this.props.isPosting) {
             return <Spinner/>
         }
 
         return(
             <Button
-                onPress={this.onApplyButtonPress.bind(this)}
+                onPress={ this.onApplyButtonPress.bind(this) }
                 buttonStyle={ styles.buttonApplyStyle }
                 textStyle={ styles.textStyle }
             >
@@ -97,16 +114,18 @@ class Allocate extends Component {
         );
     }
 
+    // creates a new DNS record for the given domain with the given information
     onApplyButtonPress() {
-        const {domain, ttl, recordType, nextIP} = this.props;
+        const { domain, ttl, recordType, nextIP } = this.props;
 
-        this.props.createDNSRecord({domain, ttl, recordType, nextIP});
+        this.props.createDNSRecord({ domain, ttl, recordType, nextIP });
     }
 
+    // only renders the IP address if there is one
     renderNextIpAddress() {
         if(this.props.nextIP === '') {
             return (
-                <Text style={styles.textStyle}> Placeholder </Text>
+                <Text style={ styles.textStyle }> Placeholder </Text>
             )
         }
 
@@ -115,24 +134,26 @@ class Allocate extends Component {
         )
     }
 
+    // renders an fetching error
     renderFetchError() {
         if(this.props.fetchError) {
             return (
                 <View>
-                    <Text style={styles.errorTextStyle}>
-                        {this.props.fetchError}
+                    <Text style={ styles.errorTextStyle }>
+                        { this.props.fetchError }
                     </Text>
                 </View>
             )
         }
     }
 
+    // renders an posting error
     renderPostError() {
         if(this.props.postError) {
             return (
                 <View>
-                    <Text style={styles.errorTextStyle}>
-                        {this.props.postError}
+                    <Text style={ styles.errorTextStyle }>
+                        { this.props.postError }
                     </Text>
                 </View>
             )
@@ -148,24 +169,24 @@ class Allocate extends Component {
                     <View>
                         <CardSection>
                             <Input
-                                label="Domain Name:"
+                                label="Host Name:"
                                 placeholder="mmsuite.company.com"
-                                onChangeText={this.onDomainNameChanged.bind(this)}
-                                value={this.props.domain}
+                                onChangeText={ this.onDomainNameChanged.bind(this) }
+                                value={ this.props.domain }
                             />
                         </CardSection>
                         <CardSection>
                             <Input
                                 label="TTL:"
                                 placeholder="604800s = 1 week"
-                                onChangeText={this.onTTLChanged.bind(this)}
-                                value={this.props.ttl}
+                                onChangeText={ this.onTTLChanged.bind(this) }
+                                value={ this.props.ttl }
                                 keyboardType="numeric"
                             />
                         </CardSection>
                         <CardSection>
                             <View style={ buttonLocationStyle }>
-                                {this.renderApplyButton(this.state.dnsRecordType)}
+                                { this.renderApplyButton(this.state.dnsRecordType) }
                             </View>
                         </CardSection>
                     </View>
@@ -196,7 +217,7 @@ class Allocate extends Component {
 
     // renders the basic DNS form when the next free IP address is found
     renderDnsRecordForm() {
-        const {dropdownButtonTextStyle, textDescriptionStyle,dropdownButtonStyle} = styles;
+        const { dropdownButtonTextStyle, textDescriptionStyle,dropdownButtonStyle } = styles;
         if(this.props.nextIP) {
             return (
                 <Card>
@@ -210,19 +231,20 @@ class Allocate extends Component {
                             options={['A', 'NS', 'CNAME', 'SOA', 'PTR', 'MX']}
                             style={ dropdownButtonStyle }
                             textStyle={ dropdownButtonTextStyle }
-                            defaultValue={"Please select"}
+                            defaultValue={ "Please select" }
                             dropdownStyle={{ backgroundColor: '#29495B', flex: 1 }}
                             dropdownTextStyle={ dropdownButtonTextStyle }
-                            onSelect={this.onRecordTypeChanged.bind(this)}
+                            onSelect={ this.onRecordTypeChanged.bind(this) }
                         />
                     </CardSection>
-                    {this.renderDnsFormFromType(this.state.dnsRecordType)}
-                    {this.renderPostError()}
+                    { this.renderDnsFormFromType(this.state.dnsRecordType) }
+                    { this.renderPostError() }
                 </Card>
             )
         }
     }
 
+    // renders the whole screen
     render() {
         const { allocateStyle, borderStyle, buttonLocationStyle } = styles;
 
@@ -234,20 +256,19 @@ class Allocate extends Component {
                         <Input
                             label="IP Range:"
                             placeholder="127.0.0.1"
-                            onChangeText={this.onIpRangeChanged.bind(this)}
-                            value={this.props.ipRange}
-                            keyboardType="numeric"
+                            onChangeText={ this.onIpRangeChanged.bind(this) }
+                            value={ this.props.ipRange }
                         />
                     </CardSection>
                     <CardSection>
-                        {this.renderFetchError()}
+                        { this.renderFetchError() }
                         <View style={ buttonLocationStyle }>
-                            {this.renderFetchButton()}
+                            { this.renderFetchButton() }
                         </View>
                     </CardSection>
                 </Card>
                 <View style={ borderStyle } />
-                {this.renderDnsRecordForm()}
+                { this.renderDnsRecordForm() }
             </View>
         );
     }
@@ -320,16 +341,16 @@ const styles = {
     }
 };
 
-const mapStateToProps = ({allocateIP}) => {
-    const {ipRange, domain, ttl, recordType, fetching, isPosting, nextIP, fetchError, postError} = allocateIP;
-    return {ipRange, domain, ttl, recordType, fetching, isPosting, nextIP, fetchError, postError};
+const mapStateToProps = ({ allocateIP }) => {
+    const { ipRange, domain, ttl, recordType, fetching, isPosting, nextIP, fetchError, postError } = allocateIP;
+    return { ipRange, domain, ttl, recordType, fetching, isPosting, nextIP, fetchError, postError };
 };
 
-export default connect(mapStateToProps, {
+export default connect( mapStateToProps, {
     ipRangeChanged,
     domainNameChanged,
     ttlChanged,
     recordTypeChanged,
     nextFreeAddress,
     createDNSRecord
-})(Allocate);
+})( Allocate );

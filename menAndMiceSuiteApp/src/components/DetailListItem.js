@@ -1,3 +1,9 @@
+/*
+    DetailListItem.js
+
+    Displays what is wrong in a network in greater detail.
+    Simple text fields that displays what, where and when something went wrong
+ */
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Card, CardSection } from './common';

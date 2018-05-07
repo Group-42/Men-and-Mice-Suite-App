@@ -1,6 +1,6 @@
 // import libraries for making a component
 import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableOpacity, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import BurgerMenu from "./BurgerMenu";
 
@@ -33,7 +33,15 @@ const styles = {
     viewStyle: {
         justifyContent: 'space-between',
         flexDirection: 'row',
-        height: 61,
+        ...Platform.select({
+                ios: {
+                    alignItems: 'flex-end',
+                    height: 75,
+                },
+                android: {
+                    height: 61,
+                },
+        }),
         borderBottomWidth: 1,
         borderColor: '#f5f5f5'
     },

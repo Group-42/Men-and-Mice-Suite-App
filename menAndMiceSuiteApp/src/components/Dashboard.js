@@ -4,7 +4,7 @@
     Dashboard overview of the health of all the different systems, displayed in expandable/collapsible listview
  */
 import React, { Component } from 'react';
-import {View, ListView, Text} from 'react-native';
+import { View, ListView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
 import { Header, Spinner } from "./common";
@@ -35,35 +35,37 @@ class Dashboard extends Component{
         this.dataSource = ds.cloneWithRows(data);
     }
 
+    // renders a spinner while the app is fetching the data, otherwise renders the dashboard
     renderDash() {
         if(this.props.isFetching || this.props.afterPressAction) {
             return <Spinner size="large"/>
         }
         else if (this.props.error) {
             return(
-                <View style={styles.errorViewStyle}>
-                    <Text style={styles.errorTextStyle}>{this.props.error}</Text>
+                <View style={ styles.errorViewStyle }>
+                    <Text style={ styles.errorTextStyle }>{ this.props.error }</Text>
                 </View>
             );
         }
         else {
             return (
                 <ListView
-                    dataSource={this.dataSource}
-                    renderRow={this.renderRow}
-                    enableEmptySections={true}
+                    dataSource={ this.dataSource }
+                    renderRow={ this.renderRow }
+                    enableEmptySections={ true }
                 />
             );
         }
     }
 
+    // renders all the subcategories for the chosen category
     renderRow( library ) {
         return <ListItem library={ library }/>
     }
 
-
+    // renders the whole screen
     render() {
-        const {dashboardStyle} = styles;
+        const { dashboardStyle } = styles;
 
         return(
             <View style={ dashboardStyle }>
