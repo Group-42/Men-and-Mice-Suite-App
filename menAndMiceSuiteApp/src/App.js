@@ -1,3 +1,8 @@
+/*
+    App.js
+
+    This file starts the app
+ */
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';

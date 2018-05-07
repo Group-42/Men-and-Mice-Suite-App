@@ -17,7 +17,7 @@ export default (state = INITIAL_STATE, action) => {
         case SELECT_SUBCATEGORY:
             return { subcategoryData: action.payload, afterPressAction: true };
         case BEEN_CLICKED:
-            return {...state, afterPressAction: false};
+            return { ...state, afterPressAction: false };
         default:
             return state;
     }

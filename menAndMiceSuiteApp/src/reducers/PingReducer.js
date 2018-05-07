@@ -20,13 +20,13 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch(action.type){
         case PING_DOMAIN_CHANGED:
-            return {...state, pingDomain: action.payload};
+            return { ...state, pingDomain: action.payload };
         case PINGING:
-            return {...state, pinging: true, pingError: ''};
+            return { ...state, pinging: true, pingError: '' };
         case PING_SUCCESS:
-            return {...state, pinging: false, pingResult: action.payload};
+            return { ...state, pinging: false, pingResult: action.payload };
         case PING_FAIL:
-            return {...state, pinging: false, pingError:'Something went wrong'};
+            return { ...state, pinging: false, pingError:'Something went wrong' };
         default:
             return state;
     }
